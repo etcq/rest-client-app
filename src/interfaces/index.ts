@@ -1,1 +1,3 @@
-// interfaces will be here;
+export interface IChildrenNode {
+  children: React.ReactNode;
+}

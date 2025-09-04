@@ -43,6 +43,7 @@ export default tseslint.config(
       ...react.configs['jsx-runtime'].rules,
       ...eslintPluginNext.configs.recommended.rules,
       'react-compiler/react-compiler': 'error',
+      "@typescript-eslint/consistent-type-definitions": ['error', 'interface'],
       '@typescript-eslint/consistent-type-imports': 'error',
     },
     settings: {

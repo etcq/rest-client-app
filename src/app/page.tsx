@@ -1,10 +1,5 @@
-import { Button } from '@mui/material';
+import { redirect } from 'next/navigation';
 
-export default function Home() {
-  return (
-    <>
-      <h1>Home page</h1>
-      <Button variant="contained">Click</Button>
-    </>
-  );
+export default function Page() {
+  redirect(`/en`);
 }
