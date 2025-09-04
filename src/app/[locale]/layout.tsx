@@ -1,11 +1,9 @@
-import theme from '@/theme/theme';
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-import { NextIntlClientProvider, hasLocale } from 'next-intl';
+import { hasLocale } from 'next-intl';
 import { Roboto } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { routing } from '@i18n/routing';
 import { getMessages, setRequestLocale } from 'next-intl/server';
-import { ThemeProvider } from '@mui/material/styles';
+import Providers from '@/providers/providers';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -32,13 +30,9 @@ export default async function LocaleLayout({ children, params }: ILocaleProps) {
   return (
     <html lang={locale} className={roboto.variable}>
       <body>
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
-            <NextIntlClientProvider locale={locale} messages={messages}>
-              {children}
-            </NextIntlClientProvider>
-          </ThemeProvider>
-        </AppRouterCacheProvider>
+        <Providers locale={locale} messages={messages}>
+          {children}
+        </Providers>
       </body>
     </html>
   );
