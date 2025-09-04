@@ -9,17 +9,16 @@ import eslintPluginNext from '@next/eslint-plugin-next';
 import reactCompiler from 'eslint-plugin-react-compiler';
 
 export default tseslint.config(
-  { ignores: [
+  {
+    ignores: [
       'node_modules/**',
       '.next/**',
       'out/**',
       'build/**',
       'next-env.d.ts',
-    ]},
-  { 
-
-
-    
+    ],
+  },
+  {
     extends: [
       js.configs.recommended,
       ...tseslint.configs.strict,
@@ -39,7 +38,7 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-    
+
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
       ...eslintPluginNext.configs.recommended.rules,
