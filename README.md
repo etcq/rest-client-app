@@ -125,7 +125,7 @@ This is the final project for the React course at Rsschool, a programming school
   </li>
 </ul>
 
-##### Tesitng
+##### Testing
 <ul>
   <li>
     <a href="https://vitest.dev/">
