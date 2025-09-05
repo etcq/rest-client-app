@@ -4,13 +4,10 @@
   <a href="https://github.com/othneildrew/Best-README-Template">
     <img src="public/images/logo.svg" alt="Logo" width="80" height="80">
   </a>
-
   <h1 align="center">RESTful client app</h1>
 </div>
 
 ## Table of contents
-___
-
 1. [About project](#about-project)
     - [Description](#description)
     - [Application structure](#application-structure)
@@ -25,7 +22,6 @@ ___
 
 ## About Project
 
----
 
 ### Description
 
@@ -54,29 +50,80 @@ This is the final project for the React course at Rsschool, a programming school
 
 ### Technologies Used
 
-- Frontend
+##### Main language
+<ul>
+  <li>
+    <a href="https://www.typescriptlang.org/">
+      <img width="20" height="20" alt="ts" src="https://github.com/user-attachments/assets/ee98179c-3f48-4c1a-9ff8-149104908cc2" />   Typescript
+    </a>
+  </li>
+</ul>
 
-  <a href="https://nextjs.org/">
-    <img width="20" height="20" alt="nextjs" src="https://github.com/user-attachments/assets/32e78665-1097-48aa-a1df-fe7066f952fa" /> Nextjs
-  </a>
+##### Main frameworks and libraries
+<ul>
+  <li>
+    <a href="https://nextjs.org/">
+      <img width="20" height="20" alt="nextjs" src="https://github.com/user-attachments/assets/32e78665-1097-48aa-a1df-fe7066f952fa" />     Nextjs
+    </a>
+  </li>
+  <li>
+    <a href="https://sass-lang.com/">
+  <img width="20" height="20" alt="sass" src="https://github.com/user-attachments/assets/3377a403-5b34-4940-adb3-35b0a2d053f3" /> SCSS
+    </a>
+  </li>
+    <li>
+    <a href="https://mui.com/material-ui/">
+       <img width="20" height="20" alt="mui" src="https://github.com/user-attachments/assets/f5559eba-6aac-409d-8879-51e27e922890" />
+ Material UI
+    </a>
+  </li>
+    <li>
+    <a href="https://zustand.docs.pmnd.rs/">
+      <img width="20" height="20" alt="zustand" src="https://github.com/user-attachments/assets/628b9872-0f57-487e-b8b1-03d2ed4a636b" />  Zustand
+    </a>
+  </li>
+</ul>
+  
+##### Linters 
+<ul>
+  <li>
+    <a href="https://eslint.org/">
+       <img width="20" height="20" alt="eslint" src="https://github.com/user-attachments/assets/74d78cc4-ff18-4883-bdc2-5d80146fcfc5" /> ESLint
+    </a>
+  </li>
+  <li>
+    <a href="https://prettier.io/">
+      <img width="20" height="20" alt="prettier" src="https://github.com/user-attachments/assets/da74e4d3-6e23-4f55-a671-62c5bab39eec" /> Prettier
+    </a>
+  </li>
+  <li>
+    <a href="https://github.com/lint-staged/lint-staged">
+      <img width="20" height="20" alt="lint-staged" src="https://github.com/user-attachments/assets/e510e2e3-4ae0-4738-9826-5cb5f87ed8c4" /> Lint-staged
+    </a>
+  </li>
+</ul>
 
-  <a href="https://www.typescriptlang.org/">
-    <img width="20" height="20" alt="ts" src="https://github.com/user-attachments/assets/ee98179c-3f48-4c1a-9ff8-149104908cc2" /> Typescript
-  </a>
+##### Git hooks
 
-  - 🎨 Scss
-  - ✅ Zod
+<ul>
+  <li>
+    <a href="https://typicode.github.io/husky/">🐶 Husky</a>
+  </li>
+</ul>
 
-- Backend
-
-
-- Utility: Linter & Testing
-  - ❗ ESlint
-  - 🧹 Lint-staged
-  - 🪄 Prettier
-  - 🐶 Husky
-  - 🧪 Vitest
-
+##### Tesitng
+<ul>
+  <li>
+    <a href="https://vitest.dev/">
+        <img width="20" height="20" alt="vitest" src="https://github.com/user-attachments/assets/d2cee1fd-02ee-4dbb-bb31-816fe736d6d1" /> Vitest
+    </a>
+  </li>
+  <li>
+    <a href="https://testing-library.com/docs/react-testing-library/intro/">
+     <img width="20" height="20" alt="rtl" src="https://github.com/user-attachments/assets/6696c50d-35e5-49d5-ae18-60d62ce8f7b4" /> React testing library
+    </a>
+  </li>
+</ul>
 
 ### Project architecture
 
@@ -97,8 +144,6 @@ This is the final project for the React course at Rsschool, a programming school
 
 
 ## Usage
-
----
 
 ### Setup Instructions
 
@@ -171,8 +216,6 @@ npm run preview
 
 
 ## The following people were involved in the project
-
----
 
 ### Authors
 
