@@ -7,18 +7,32 @@
   <h1 align="center">RESTful client app</h1>
 </div>
 
-## Table of contents
-1. [About project](#about-project)
-    - [Description](#description)
-    - [Application structure](#application-structure)
-    - [Key benefits](#-key-benefits)
-    - [Technologies Used](#technologies-used)
-    - [Project architecture](#project-architecture)
-2. [Usage](#usage)
-    - [Setup Instructions](#setup-instructions)
-    - [Scripts in project](#scripts-in-project)
-3. [The following people were involved in the project](#the-following-people-were-involved-in-the-project)
 
+<details>
+  <summary><h2>Table of contents</h3></summary>
+  <ol>
+    <li>
+      <a href="#about-project">About project</a>
+      <ul>
+        <li><a href="#description">Description</a></li>
+        <li><a href="#application-structure">Application structure</a></li>
+        <li><a href="#-key-benefits">Key benefits</a></li>
+        <li><a href="#technologies-used">Technologies Used</a></li>
+        <li><a href="#project-architecture">Project architecture</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#usage">Usage</a>
+      <ul>
+        <li><a href="#setup-instructions">Setup Instructions</a></li>
+        <li><a href="#scripts-in-project">Scripts in project</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#the-following-people-were-involved-in-the-project">The following people were involved in the project</a>
+    </li>
+  </ol>
+</details>
 
 ## About Project
 
