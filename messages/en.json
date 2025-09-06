@@ -1,5 +1,9 @@
 {
   "HomePage": {
     "title": "Main page"
+  },
+  "Header": {
+    "login": "Sign In",
+    "registration": "Sign Up"
   }
 }

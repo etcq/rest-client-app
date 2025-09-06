@@ -1,1 +1,1 @@
-// constants will be here
+export const appName = 'REST client';

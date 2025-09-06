@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -17,20 +17,26 @@ import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import styles from './header.module.scss';
 import LangSwitcher from '../lang-switcher/lang-switcher';
+import { useTranslations } from 'next-intl';
+import { appName } from '@constants';
 
 const drawerWidth = 240;
-const navItems = [
-  { text: 'Sign In', path: '/login' },
-  { text: 'Sign Up', path: '/registration' },
-];
-const appName = 'REST client';
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const t = useTranslations('Header');
 
-  const handleDrawerToggle = () => {
+  const navItems = useMemo(
+    () => [
+      { text: t('login'), path: '/login' },
+      { text: t('registration'), path: '/registration' },
+    ],
+    [t]
+  );
+
+  const handleDrawerToggle = useCallback(() => {
     setMobileOpen((prevState) => !prevState);
-  };
+  }, []);
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
@@ -38,9 +44,9 @@ export default function Header() {
         {appName}
       </Typography>
       <Divider />
-      <List>
+      <List sx={{ mt: 4 }}>
         {navItems.map((item) => (
-          <ListItem key={item.text} disablePadding>
+          <ListItem key={item.text} sx={{ justifyContent: 'center' }}>
             <Link href={item.path}>
               <ListItemButton sx={{ textAlign: 'center' }}>
                 <ListItemText primary={item.text} />
@@ -55,7 +61,7 @@ export default function Header() {
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar component="nav" color="primary">
-        <Toolbar>
+        <Toolbar sx={{ height: 80 }}>
           <IconButton
             aria-label="open drawer"
             edge="start"

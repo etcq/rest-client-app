@@ -6,11 +6,15 @@ const theme = createTheme({
     fontFamily: 'var(--font-roboto)',
   },
   palette: {
+    mode: 'dark',
     primary: {
-      main: '#303f9f',
+      main: '#71717d',
     },
     secondary: {
-      main: '#00897b',
+      main: '#0cad81',
+    },
+    background: {
+      default: '#1f282f',
     },
   },
 });

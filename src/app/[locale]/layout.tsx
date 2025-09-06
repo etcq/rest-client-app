@@ -5,7 +5,7 @@ import { routing } from '@i18n/routing';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import Providers from '@/providers/providers';
 import Header from '@/components/header/header';
-import styles from './layout.module.scss';
+import { Box } from '@mui/material';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -34,7 +34,7 @@ export default async function LocaleLayout({ children, params }: ILocaleProps) {
       <body>
         <Providers locale={locale} messages={messages}>
           <Header />
-          <div className={styles.wrapper}>{children}</div>
+          <Box sx={{ mt: 10 }}>{children}</Box>
         </Providers>
       </body>
     </html>
