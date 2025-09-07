@@ -1,10 +1,11 @@
+'use client';
 import { useTransition } from 'react';
 import { routing } from '@i18n/routing';
 import { usePathname, useRouter } from '@i18n/navigation';
 import { useLocale } from 'next-intl';
 import { Box, FormControl, Select, MenuItem, type SelectChangeEvent } from '@mui/material';
 
-export default function LangSwitcher() {
+export const LangSwitcher = () => {
   const router = useRouter();
   const [, startTransition] = useTransition();
   const pathname = usePathname();
@@ -35,4 +36,4 @@ export default function LangSwitcher() {
       </FormControl>
     </Box>
   );
-}
+};

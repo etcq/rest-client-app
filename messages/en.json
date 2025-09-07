@@ -1,8 +1,8 @@
 {
   "HomePage": {
-    "title": "Main page"
+    "title": "Welcome!"
   },
-  "Header": {
+  "Auth": {
     "login": "Sign In",
     "registration": "Sign Up"
   }
