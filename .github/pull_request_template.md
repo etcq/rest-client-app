@@ -5,16 +5,16 @@
 #### 🤔 This is a ...
 
 - [ ] 🌟 New component
-- [ ] ⚙️ New fuature
+- [ ] ⚙️ New feature
 - [ ] 🧪 New test
 - [ ] 🔧 Update to an existing component
-- [ ] 🛠️ Update to an existing ffuature
+- [ ] 🛠️ Update to an existing feature
 - [ ] ✏️ Fixed a typo or grammatical error
 - [ ] 🐛 Fix component visible error
-- [ ] 🛠 Fix in fuature code error
+- [ ] 🛠 Fix in feature code error
 - [ ] ❓ Other (specify: **\*\*\*\***\_\_\_\_**\*\*\*\***)
 
-#### Bried description
+#### Brief description
 
 
 
