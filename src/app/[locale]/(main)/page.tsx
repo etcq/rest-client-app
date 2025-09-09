@@ -1,9 +1,10 @@
-import { Link } from '@/i18n/navigation';
-import { Box, Button } from '@mui/material';
+import { MainMenu } from '@components';
+import { Box, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 
 export default function Home() {
   const t = useTranslations();
+  const isAuth = false;
   return (
     <Box
       sx={{
@@ -15,19 +16,10 @@ export default function Home() {
         justifyContent: 'center',
       }}
     >
-      <h1>{t('HomePage.title')}</h1>
-      <Box sx={{ display: 'flex', gap: 2 }}>
-        <Link href="/login">
-          <Button variant="contained" sx={{ width: 170 }}>
-            {t('Auth.login')}
-          </Button>
-        </Link>
-        <Link href="/registration">
-          <Button variant="contained" sx={{ width: 170 }}>
-            {t('Auth.registration')}
-          </Button>
-        </Link>
-      </Box>
+      <Typography variant="h1" sx={{ mb: 4, textAlign: 'center', fontWeight: 700 }}>
+        {isAuth ? t('HomePage.titleAuth') : t('HomePage.titleUnauth')}
+      </Typography>
+      <MainMenu isAuth={isAuth} />
     </Box>
   );
 }

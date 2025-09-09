@@ -1,9 +1,16 @@
 {
   "HomePage": {
-    "title": "Welcome!"
+    "titleUnauth": "Welcome!",
+    "titleAuth": "Welcome back!"
   },
   "Auth": {
     "login": "Sign In",
-    "registration": "Sign Up"
+    "registration": "Sign Up",
+    "logout": "Sign Out"
+  },
+  "AuthMenu": {
+    "rest": "REST Client",
+    "history": "History",
+    "variables": "Variables"
   }
 }

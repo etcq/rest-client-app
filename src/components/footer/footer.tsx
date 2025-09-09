@@ -12,7 +12,6 @@ const school = 'https://rs.school/';
 export const Footer = () => {
   return (
     <Container
-      color="primary"
       sx={{
         borderTop: '1px solid #e0e0e0',
         pt: 1,
@@ -24,7 +23,15 @@ export const Footer = () => {
         height: layoutConfig.footerHeight,
       }}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }} width={200}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: { sm: 2, xs: 0 },
+          flexDirection: { xs: 'column', sm: 'row' },
+        }}
+        width={200}
+      >
         {githubNames.map((name) => (
           <Link href={`${github}${name}`} target="_blank" key={name}>
             <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center' }}>

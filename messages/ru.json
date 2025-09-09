@@ -1,9 +1,17 @@
 {
   "HomePage": {
-    "title": "Добро пожаловать!"
+    "titleUnauth": "Добро пожаловать!",
+    "titleAuth": "С возвращением!"
+
   },
   "Auth": {
     "login": "Войти",
-    "registration": "Зарегестрироваться"
+    "registration": "Зарегестрироваться",
+    "logout": "Выйти"
+  },
+  "AuthMenu": {
+    "rest": "REST Клиент",
+    "history": "История",
+    "variables": "Переменные"
   }
 }
