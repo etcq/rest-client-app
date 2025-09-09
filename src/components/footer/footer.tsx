@@ -13,8 +13,8 @@ export const Footer = () => {
   return (
     <Container
       sx={{
-        borderTop: '1px solid #e0e0e0',
-        pt: 1,
+        borderTop: 1,
+        borderColor: 'divider',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
