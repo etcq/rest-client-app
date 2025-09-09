@@ -4,9 +4,8 @@ import Image from 'next/image';
 import React from 'react';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { layoutConfig } from '@/constants';
-const githubNames = ['turik777', 'aQafresca', 'etcq'];
+import { github, teamPersonsInfo } from '@/constants';
 
-const github = 'https://github.com/';
 const school = 'https://rs.school/';
 
 export const Footer = () => {
@@ -15,12 +14,15 @@ export const Footer = () => {
       sx={{
         borderTop: 1,
         borderColor: 'divider',
+        bgcolor: '#0a0a0a',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         gap: 5,
         bottom: 0,
         height: layoutConfig.footerHeight,
+        zIndex: 10,
+        position: 'relative',
       }}
     >
       <Box
@@ -32,11 +34,11 @@ export const Footer = () => {
         }}
         width={200}
       >
-        {githubNames.map((name) => (
-          <Link href={`${github}${name}`} target="_blank" key={name}>
+        {teamPersonsInfo.map((person) => (
+          <Link href={`${github}${person.githubName}`} target="_blank" key={person.githubName}>
             <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center' }}>
               <GitHubIcon sx={{ fontSize: 'small' }} />
-              <span>{name}</span>
+              <span>{person.githubName}</span>
             </Box>
           </Link>
         ))}

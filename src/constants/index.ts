@@ -13,3 +13,11 @@ export const paths = {
   history: '/history',
   variables: '/variables',
 } as const;
+
+export const teamPersonsInfo = [
+  { githubName: 'turik777', fullName: 'Artur Bazaluk' },
+  { githubName: 'aQafresca', fullName: 'Sergey Buiko' },
+  { githubName: 'etcq', fullName: 'Anton Sushnikov' },
+];
+
+export const github = 'https://github.com/';
