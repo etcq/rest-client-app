@@ -9,4 +9,4 @@ export const validationMessages = {
   passwordLowercase: 'Password must contain at least one lowercase letter.',
   passwordNumber: 'Password must contain at least one number.',
   passwordSpecial: 'Password must contain at least one special character.',
-};
+} as const;
