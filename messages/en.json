@@ -13,5 +13,9 @@
     "history": "History",
     "variables": "Variables",
     "main": "Main page"
+  },
+  "Auth": {
+    "noAccount": "Don't have an account? ",
+    "haveAccount": "Already have an account? "
   }
 }
