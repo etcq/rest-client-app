@@ -6,7 +6,7 @@ import { github, teamPersonsInfo } from '@/constants';
 
 const avatarEndpoint = '.png?size=50';
 
-export default function Home() {
+export default function MainPage() {
   const t = useTranslations('MainPage');
   const isAuth = false;
   return (

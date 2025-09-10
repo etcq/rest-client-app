@@ -12,7 +12,7 @@ export const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [pageScroll, setPageScroll] = useState(false);
   const [isAuth] = useState(false);
-  const t = useTranslations('Auth');
+  const t = useTranslations('Navigation');
 
   const changeHeader = useCallback(() => {
     if (window.scrollY >= 1) {
@@ -29,10 +29,18 @@ export const Header = () => {
     };
   }, [changeHeader]);
 
-  const navItems = useMemo(
+  const authNavItems = useMemo(
     () => [
       { text: t('login'), path: paths.login },
       { text: t('registration'), path: paths.registration },
+    ],
+    [t]
+  );
+
+  const unauthNavItems = useMemo(
+    () => [
+      { text: t('main'), path: paths.main },
+      { text: t('logout'), path: paths.main },
     ],
     [t]
   );
@@ -44,7 +52,7 @@ export const Header = () => {
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar
-        component="nav"
+        component="header"
         sx={{
           bgcolor: !pageScroll ? 'background.main' : '#1f282fb3',
           transition: 'ease-out 0.5s',
@@ -73,23 +81,21 @@ export const Header = () => {
             <Box>
               <LangSwitcher />
             </Box>
-            <Box sx={{ display: { xs: 'none', sm: 'block' }, mr: 2, width: '22%', textAlign: 'right' }}>
-              {!isAuth ? (
-                navItems.map((item) => (
-                  <Button key={item.text} sx={{ color: '#fff' }} data-testid={`header-btn-${item.path.slice(1)}`}>
-                    <Link href={item.path}>{item.text}</Link>
-                  </Button>
-                ))
-              ) : (
-                <Button sx={{ color: '#fff' }}>
-                  <Link href={paths.main}>{t('logout')}</Link>
+            <Box sx={{ display: { xs: 'none', sm: 'block' }, mr: 2, width: '22%', textAlign: 'right' }} component="nav">
+              {(!isAuth ? authNavItems : unauthNavItems).map((item) => (
+                <Button key={item.text} sx={{ color: '#fff' }} data-testid={`header-btn-${item.path.slice(1)}`}>
+                  <Link href={item.path}>{item.text}</Link>
                 </Button>
-              )}
+              ))}
             </Box>
           </Toolbar>
         </Container>
       </AppBar>
-      <Sidebar handleDrawerToggle={handleDrawerToggle} navItems={navItems} isOpen={mobileOpen} />
+      <Sidebar
+        handleDrawerToggle={handleDrawerToggle}
+        navItems={!isAuth ? authNavItems : unauthNavItems}
+        isOpen={mobileOpen}
+      />
     </Box>
   );
 };

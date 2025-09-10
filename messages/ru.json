@@ -6,14 +6,13 @@
     "createdBy": "Команда разработки:"
 
   },
-  "Auth": {
+  "Navigation": {
     "login": "Войти",
     "registration": "Зарегестрироваться",
-    "logout": "Выйти"
-  },
-  "AuthMenu": {
+    "logout": "Выйти",
     "rest": "REST Клиент",
     "history": "История",
-    "variables": "Переменные"
+    "variables": "Переменные",
+    "main": "Главная страница"
   }
 }

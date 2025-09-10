@@ -9,20 +9,20 @@ interface IAuthMenuProps {
 }
 
 const unauthMenu = [
-  { text: 'Auth.login', path: paths.login },
-  { text: 'Auth.registration', path: paths.registration },
+  { text: 'Navigation.login', path: paths.login },
+  { text: 'Navigation.registration', path: paths.registration },
 ];
 
 const authMenu = [
-  { text: 'AuthMenu.rest', path: paths.rest },
-  { text: 'AuthMenu.history', path: paths.history },
-  { text: 'AuthMenu.variables', path: paths.variables },
+  { text: 'Navigation.rest', path: paths.rest },
+  { text: 'Navigation.history', path: paths.history },
+  { text: 'Navigation.variables', path: paths.variables },
 ];
 
 export const MainMenu = ({ isAuth }: IAuthMenuProps) => {
   const t = useTranslations();
   return (
-    <Box sx={{ display: 'flex', gap: 2 }}>
+    <Box sx={{ display: 'flex', gap: 2 }} data-testid="main-menu">
       {(isAuth ? authMenu : unauthMenu).map((item) => (
         <Link href={item.path} key={item.path}>
           <Button variant="contained" sx={{ width: 170 }}>

@@ -11,6 +11,7 @@ const school = 'https://rs.school/';
 export const Footer = () => {
   return (
     <Container
+      component="footer"
       sx={{
         borderTop: 1,
         borderColor: 'divider',
@@ -24,6 +25,7 @@ export const Footer = () => {
         zIndex: 10,
         position: 'relative',
       }}
+      data-testid="footer"
     >
       <Box
         sx={{
@@ -35,7 +37,12 @@ export const Footer = () => {
         width={200}
       >
         {teamPersonsInfo.map((person) => (
-          <Link href={`${github}${person.githubName}`} target="_blank" key={person.githubName}>
+          <Link
+            href={`${github}${person.githubName}`}
+            target="_blank"
+            key={person.githubName}
+            data-testid={`link-person`}
+          >
             <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center' }}>
               <GitHubIcon sx={{ fontSize: 'small' }} />
               <span>{person.githubName}</span>
@@ -43,11 +50,11 @@ export const Footer = () => {
           </Link>
         ))}
       </Box>
-      <Typography variant="h5" width={200} sx={{ textAlign: 'center' }}>
+      <Typography variant="h5" width={200} sx={{ textAlign: 'center' }} data-testid="footer-year">
         {new Date().getFullYear()}
       </Typography>
       <Box width={200} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Link href={school}>
+        <Link href={school} data-testid="school-link">
           <Image src={'/images/rsschool.png'} alt="School logo" width={40} height={40} />
         </Link>
       </Box>

@@ -5,14 +5,13 @@
     "description": "This is the final project for the React course at Rsschool, a programming school. The aim of the project is to create a lightweight version of Postman within a single app.",
     "createdBy": "The development team:"
   },
-  "Auth": {
+  "Navigation": {
     "login": "Sign In",
     "registration": "Sign Up",
-    "logout": "Sign Out"
-  },
-  "AuthMenu": {
+    "logout": "Sign Out",
     "rest": "REST Client",
     "history": "History",
-    "variables": "Variables"
+    "variables": "Variables",
+    "main": "Main page"
   }
 }

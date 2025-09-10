@@ -36,6 +36,7 @@ export default async function LocaleLayout({ children, params }: ILocaleProps) {
         <Providers locale={locale} messages={messages}>
           <Header />
           <Container
+            component="main"
             sx={{
               mt: 10,
               height: `calc(100vh - ${layoutConfig.headerHeight}px - ${layoutConfig.footerHeight}px)`,
