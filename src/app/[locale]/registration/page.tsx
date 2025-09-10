@@ -1,7 +1,7 @@
 import AuthForm from '@/components/example/auth-form/auth-form';
 
-const LoginForm = () => {
+const RegistrationForm = () => {
   return <AuthForm type="register" />;
 };
 
-export default LoginForm;
+export default RegistrationForm;
