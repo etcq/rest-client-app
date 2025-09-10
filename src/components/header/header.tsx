@@ -76,7 +76,7 @@ export const Header = () => {
             <Box sx={{ display: { xs: 'none', sm: 'block' }, mr: 2, width: '22%', textAlign: 'right' }}>
               {!isAuth ? (
                 navItems.map((item) => (
-                  <Button key={item.text} sx={{ color: '#fff' }}>
+                  <Button key={item.text} sx={{ color: '#fff' }} data-testid={`header-btn-${item.path.slice(1)}`}>
                     <Link href={item.path}>{item.text}</Link>
                   </Button>
                 ))

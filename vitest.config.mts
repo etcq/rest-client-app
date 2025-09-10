@@ -9,7 +9,7 @@ export default defineConfig({
       deps: { inline: ['next-intl'] },
     },
     environment: 'jsdom',
-    setupFiles: ['./src/setupTest.ts'],
+    setupFiles: ['./src/setup-tests.ts'],
     globals: true,
     coverage: {
       reporter: ['text', 'json', 'html'],
