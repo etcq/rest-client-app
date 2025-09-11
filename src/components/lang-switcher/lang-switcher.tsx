@@ -10,6 +10,7 @@ export const LangSwitcher = () => {
   const [, startTransition] = useTransition();
   const pathname = usePathname();
   const locale = useLocale();
+
   function onSelectChange(event: SelectChangeEvent) {
     const nextLocale = event.target.value;
     startTransition(() => {

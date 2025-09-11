@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { AppBar, Box, IconButton, Toolbar, Typography, Button, Container } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Image from 'next/image';
@@ -7,47 +7,27 @@ import { Link } from '@i18n/navigation';
 import { LangSwitcher, Sidebar } from '@components';
 import { useTranslations } from 'next-intl';
 import { appName, layoutConfig, paths } from '@constants';
+import usePageScroll from '@/hooks/use-page-scroll';
 
 export const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [pageScroll, setPageScroll] = useState(false);
   const [isAuth] = useState(false);
   const t = useTranslations('Navigation');
+  const pageScroll = usePageScroll();
 
-  const changeHeader = useCallback(() => {
-    if (window.scrollY >= 1) {
-      setPageScroll(true);
-    } else {
-      setPageScroll(false);
-    }
-  }, []);
+  const authNavItems = [
+    { text: t('login'), path: paths.login },
+    { text: t('registration'), path: paths.registration },
+  ];
 
-  useEffect(() => {
-    window.addEventListener('scroll', changeHeader);
-    return () => {
-      window.removeEventListener('scroll', changeHeader);
-    };
-  }, [changeHeader]);
+  const unauthNavItems = [
+    { text: t('main'), path: paths.main },
+    { text: t('logout'), path: paths.main },
+  ];
 
-  const authNavItems = useMemo(
-    () => [
-      { text: t('login'), path: paths.login },
-      { text: t('registration'), path: paths.registration },
-    ],
-    [t]
-  );
-
-  const unauthNavItems = useMemo(
-    () => [
-      { text: t('main'), path: paths.main },
-      { text: t('logout'), path: paths.main },
-    ],
-    [t]
-  );
-
-  const handleDrawerToggle = useCallback(() => {
+  const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
-  }, []);
+  };
 
   return (
     <Box sx={{ display: 'flex' }}>
