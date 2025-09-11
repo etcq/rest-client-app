@@ -4,6 +4,7 @@ import { NextIntlClientProvider, type Messages } from 'next-intl';
 import { SessionProvider } from 'next-auth/react';
 import theme from '@/theme/theme';
 import { auth } from '@/auth/auth';
+import AppLoader from '@/hoc/app-loader';
 
 interface IProvidersProps {
   children: React.ReactNode;
@@ -16,13 +17,15 @@ export default async function Providers({ children, locale, messages }: IProvide
 
   return (
     <SessionProvider session={session}>
-      <AppRouterCacheProvider>
-        <ThemeProvider theme={theme}>
-          <NextIntlClientProvider locale={locale} messages={messages}>
-            {children}
-          </NextIntlClientProvider>
-        </ThemeProvider>
-      </AppRouterCacheProvider>
+      <AppLoader>
+        <AppRouterCacheProvider>
+          <ThemeProvider theme={theme}>
+            <NextIntlClientProvider locale={locale} messages={messages}>
+              {children}
+            </NextIntlClientProvider>
+          </ThemeProvider>
+        </AppRouterCacheProvider>
+      </AppLoader>
     </SessionProvider>
   );
 }
