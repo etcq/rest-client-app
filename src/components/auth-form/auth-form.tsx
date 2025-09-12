@@ -8,6 +8,7 @@ import { type SignInInput, type SignUpInput, signInSchema, signUpSchema } from '
 import { loginWithCredentials } from '@/actions/sign-in';
 import { registerUser } from '@/actions/register';
 import { redirect } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 interface IProps {
   type: 'login' | 'register';
@@ -16,6 +17,7 @@ interface IProps {
 type TFormValues = SignInInput | SignUpInput;
 
 const AuthForm: FC<IProps> = ({ type }) => {
+  const t = useTranslations();
   const isLogin = type === 'login';
   const schema = isLogin ? signInSchema : signUpSchema;
 
@@ -43,7 +45,7 @@ const AuthForm: FC<IProps> = ({ type }) => {
   return (
     <Box component="form" sx={{ width: 400, mx: 'auto', mt: 8 }} onSubmit={handleSubmit(onSubmit)}>
       <Typography variant="h5" align="center" mb={2}>
-        {isLogin ? 'Sign In' : 'Sign Up'}
+        {isLogin ? t('Navigation.login') : t('Navigation.registration')}
       </Typography>
 
       {!isLogin && (
@@ -78,13 +80,15 @@ const AuthForm: FC<IProps> = ({ type }) => {
 
       <Box mt={2} display="flex" justifyContent="center">
         <Button type="submit" variant="contained" disabled={!isValid} fullWidth>
-          {isLogin ? 'Sign In' : 'Sign Up'}
+          {isLogin ? t('Navigation.login') : t('Navigation.registration')}
         </Button>
       </Box>
 
       <Box sx={{ textAlign: 'center' }}>
         <Link href={isLogin ? '/registration' : '/login'} variant="body1" sx={{ display: 'block', mt: 2 }}>
-          {isLogin ? "Don't have an account? Sign Up" : 'Already have an account? Sign In'}
+          {isLogin
+            ? `${t('Auth.noAccount')}${t('Navigation.registration')}`
+            : `${t('Auth.haveAccount')}${t('Navigation.login')}`}
         </Link>
       </Box>
     </Box>

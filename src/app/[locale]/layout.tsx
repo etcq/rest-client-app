@@ -4,6 +4,9 @@ import { notFound } from 'next/navigation';
 import { routing } from '@i18n/routing';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import Providers from '@/providers/providers';
+import { Header, Footer } from '@components';
+import { Container } from '@mui/material';
+import { layoutConfig } from '@/constants';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -31,7 +34,17 @@ export default async function LocaleLayout({ children, params }: ILocaleProps) {
     <html lang={locale} className={roboto.variable}>
       <body>
         <Providers locale={locale} messages={messages}>
-          {children}
+          <Header />
+          <Container
+            component="main"
+            sx={{
+              mt: 10,
+              height: `calc(100vh - ${layoutConfig.headerHeight}px - ${layoutConfig.footerHeight}px)`,
+            }}
+          >
+            {children}
+          </Container>
+          <Footer />
         </Providers>
       </body>
     </html>
