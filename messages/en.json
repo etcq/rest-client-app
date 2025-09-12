@@ -1,5 +1,21 @@
 {
-  "HomePage": {
-    "title": "Main page"
+  "MainPage": {
+    "titleUnauth": "Welcome!",
+    "titleAuth": "Welcome back!",
+    "description": "This is the final project for the React course at Rsschool, a programming school. The aim of the project is to create a lightweight version of Postman within a single app.",
+    "createdBy": "The development team:"
+  },
+  "Navigation": {
+    "login": "Sign In",
+    "registration": "Sign Up",
+    "logout": "Sign Out",
+    "rest": "REST Client",
+    "history": "History",
+    "variables": "Variables",
+    "main": "Main page"
+  },
+  "Auth": {
+    "noAccount": "Don't have an account? ",
+    "haveAccount": "Already have an account? "
   }
 }

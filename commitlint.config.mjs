@@ -15,6 +15,7 @@ const Configuration = {
         'style',
         'docs',
         'test',
+        'merge',
       ],
     ],
   },
