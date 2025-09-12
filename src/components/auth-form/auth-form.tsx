@@ -18,6 +18,7 @@ type TFormValues = SignInInput | SignUpInput;
 
 const AuthForm: FC<IProps> = ({ type }) => {
   const t = useTranslations();
+  const tError = useTranslations('AuthValidation');
   const isLogin = type === 'login';
   const schema = isLogin ? signInSchema : signUpSchema;
 
@@ -29,6 +30,7 @@ const AuthForm: FC<IProps> = ({ type }) => {
     resolver: zodResolver(schema),
     mode: 'onChange',
   });
+  const nameError = (errors as FieldErrors<SignUpInput>).name?.message;
 
   const onSubmit = async (formData: TFormValues) => {
     if (isLogin) {
@@ -50,31 +52,31 @@ const AuthForm: FC<IProps> = ({ type }) => {
 
       {!isLogin && (
         <TextField
-          label="Name"
+          label={t('Auth.name')}
           fullWidth
           margin="normal"
           {...register('name')}
-          helperText={(errors as FieldErrors<SignUpInput>).name?.message}
-          error={!!(errors as FieldErrors<SignUpInput>).name}
+          helperText={nameError && tError(nameError)}
+          error={!!nameError}
         />
       )}
 
       <TextField
-        label="Email"
+        label={t('Auth.email')}
         fullWidth
         margin="normal"
         {...register('email')}
-        helperText={errors.email?.message}
+        helperText={errors.email?.message && tError(errors.email.message)}
         error={!!errors.email}
       />
 
       <TextField
-        label="Password"
+        label={t('Auth.password')}
         type="password"
         fullWidth
         margin="normal"
         {...register('password')}
-        helperText={errors.password?.message}
+        helperText={errors.password?.message && tError(errors.password.message)}
         error={!!errors.password}
       />
 
