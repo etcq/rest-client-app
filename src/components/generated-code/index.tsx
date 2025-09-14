@@ -4,13 +4,7 @@ import codegen from 'postman-code-generators';
 import { Request } from 'postman-collection';
 import { useEffect, useState, type JSX } from 'react';
 import { Box, MenuItem, Select, Typography } from '@mui/material';
-
-interface IGeneratedCodeProps {
-  url: string;
-  method: string;
-  body: string;
-  headers: Record<string, string>;
-}
+import type { IRequestData } from '@interfaces';
 
 const LANGUAGES = [
   { label: 'JavaScript (Fetch)', language: 'javascript', variant: 'fetch' },
@@ -23,7 +17,7 @@ const LANGUAGES = [
   { label: 'Go (Native)', language: 'go', variant: 'Native' },
 ];
 
-export const GeneratedCode = ({ url, method, body, headers }: IGeneratedCodeProps): JSX.Element => {
+export const GeneratedCode = ({ url, method, body, headers }: IRequestData): JSX.Element => {
   const [snippets, setSnippets] = useState<Record<string, string>>({});
   const [selectedLanguage, setSelectedLanguage] = useState(LANGUAGES[0].label);
 

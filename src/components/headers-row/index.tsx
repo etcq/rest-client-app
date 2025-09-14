@@ -1,7 +1,7 @@
 import { Box, TextField } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { RiDeleteBinLine } from 'react-icons/ri';
-import type { IHeader } from '@store/use-request.store';
+import type { IHeader } from '@interfaces';
 import useRequestStore from '@store/use-request.store';
 
 export interface IHeadersRowProps {
