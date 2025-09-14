@@ -1,6 +1,5 @@
 import { useState } from 'react';
-
-type TMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+import type { METHODS } from '@constants';
 
 interface IResponse {
   status?: number;
@@ -12,7 +11,7 @@ export const useFetchClient = () => {
   const [response, setResponse] = useState<IResponse>({});
   const [loading, setLoading] = useState(false);
 
-  const sendRequest = async (url: string, method: TMethod, headers: Record<string, string>, body?: string) => {
+  const sendRequest = async (url: string, method: METHODS, headers: Record<string, string>, body?: string) => {
     setLoading(true);
     setResponse({});
 
