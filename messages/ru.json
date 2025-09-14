@@ -18,5 +18,32 @@
   "Auth": {
     "noAccount": "Нет аккаунта? ",
     "haveAccount": "Уже есть аккаунт? "
+  },
+  "restfulPage": {
+    "title": "REST клиент",
+    "placeholder": {
+      "url": "Введите URL",
+      "headers": {
+        "key": "Ключ",
+        "value": "Значение"
+      },
+      "body": "Введите тело запроса..."
+    },
+    "labels": {
+      "selects": {
+        "method": "метод"
+      },
+      "buttons": {
+        "send" : "Отправить"
+      },
+      "tabs": {
+        "headers": "Заголовки",
+        "body": "Тело",
+        "code": "Сгенерированный код"
+      }
+    },
+    "errors": {
+      "response": "Неподдерживаемый тип"
+    }
   }
 }

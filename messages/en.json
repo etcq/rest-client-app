@@ -17,5 +17,32 @@
   "Auth": {
     "noAccount": "Don't have an account? ",
     "haveAccount": "Already have an account? "
+  },
+  "restfulPage": {
+    "title": "REST client",
+    "placeholders": {
+      "url": "Enter URL",
+      "headers": {
+        "key": "Key",
+        "value": "value"
+      },
+      "body": "Enter request body here..."
+    },
+    "labels": {
+      "selects": {
+        "method": "method"
+      },
+      "buttons": {
+        "send" : "send"
+      },
+      "tabs": {
+        "headers": "",
+        "body": "",
+        "code": ""
+      }
+    },
+    "errors": {
+      "response": "Unsupported content type"
+    }
   }
 }
