@@ -12,3 +12,8 @@ export const TABS = {
   BODY: 'body',
   CODE: 'code',
 };
+
+export const PARAMS = {
+  METHOD: 'method',
+  REQUEST: 'request',
+};

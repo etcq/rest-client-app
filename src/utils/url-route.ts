@@ -1,7 +1,7 @@
 import type { IRequestData } from '@interfaces';
 import { Base64 } from 'js-base64';
 import type { METHODS } from '@constants';
-import { PARAM_METHOD, PARAM_REQUEST } from '@constants';
+import { PARAMS } from '@constants';
 
 export const encodeRequestToUrl = (requestData: IRequestData): string => {
   const { method, url, body, headers } = requestData;
@@ -15,16 +15,16 @@ export const encodeRequestToUrl = (requestData: IRequestData): string => {
   const encodedData: string = Base64.encode(JSON.stringify(dataToEncode));
 
   const searchParams = new URLSearchParams();
-  searchParams.set(PARAM_METHOD, method);
-  searchParams.set(PARAM_REQUEST, encodedData);
+  searchParams.set(PARAMS.METHOD, method);
+  searchParams.set(PARAMS.REQUEST, encodedData);
 
   return `?${searchParams.toString()}`;
 };
 
 export const decodeUrlToRequest = (search: string): Partial<IRequestData> => {
   const searchParams = new URLSearchParams(search);
-  const method: string | null = searchParams.get(PARAM_METHOD);
-  const encodedData: string | null = searchParams.get(PARAM_REQUEST);
+  const method: string | null = searchParams.get(PARAMS.METHOD);
+  const encodedData: string | null = searchParams.get(PARAMS.REQUEST);
 
   if (!encodedData || !method) {
     return {};
