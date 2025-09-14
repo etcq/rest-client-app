@@ -39,7 +39,7 @@ export default async function LocaleLayout({ children, params }: ILocaleProps) {
             component="main"
             sx={{
               mt: 10,
-              height: `calc(100vh - ${layoutConfig.headerHeight}px - ${layoutConfig.footerHeight}px)`,
+              minHeight: `calc(100vh - ${layoutConfig.headerHeight}px - ${layoutConfig.footerHeight}px)`,
             }}
           >
             {children}
