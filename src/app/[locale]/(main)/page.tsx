@@ -1,14 +1,16 @@
+'use client';
 import { MainMenu } from '@components';
 import { Avatar, Box, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { github, teamPersonsInfo } from '@/constants';
+import { useAuthStore } from '@/store/auth-store';
 
 const avatarEndpoint = '.png?size=50';
 
 export default function MainPage() {
   const t = useTranslations('MainPage');
-  const isAuth = false;
+  const isAuth = useAuthStore((state) => state.isAuth);
   return (
     <Box
       sx={{

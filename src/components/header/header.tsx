@@ -8,10 +8,11 @@ import { LangSwitcher, Sidebar } from '@components';
 import { useTranslations } from 'next-intl';
 import { appName, layoutConfig, paths } from '@constants';
 import usePageScroll from '@/hooks/use-page-scroll';
+import { useAuthStore } from '@/store/auth-store';
 
 export const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isAuth] = useState(false);
+  const isAuth = useAuthStore((state) => state.isAuth);
   const t = useTranslations('Navigation');
   const pageScroll = usePageScroll();
 
