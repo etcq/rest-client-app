@@ -33,16 +33,18 @@
         "method": "method"
       },
       "buttons": {
-        "send" : "send"
+        "send" : "send",
+        "add": "Add"
       },
       "tabs": {
-        "headers": "",
-        "body": "",
-        "code": ""
+        "headers": "Headers",
+        "body": "Body",
+        "code": "Generated Code"
       }
     },
     "errors": {
-      "response": "Unsupported content type"
+      "response": "Unsupported content type",
+      "incorrectUrl": "Incorrect Url"
     }
   }
 }

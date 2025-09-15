@@ -21,7 +21,7 @@
   },
   "restfulPage": {
     "title": "REST клиент",
-    "placeholder": {
+    "placeholders": {
       "url": "Введите URL",
       "headers": {
         "key": "Ключ",
@@ -34,7 +34,8 @@
         "method": "метод"
       },
       "buttons": {
-        "send" : "Отправить"
+        "send" : "отправить",
+        "add": "Добавить"
       },
       "tabs": {
         "headers": "Заголовки",
@@ -43,7 +44,8 @@
       }
     },
     "errors": {
-      "response": "Неподдерживаемый тип"
+      "response": "Неподдерживаемый тип",
+      "incorrectUrl": "Некорректный Url"
     }
   }
 }
