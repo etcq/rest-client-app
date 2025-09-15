@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import useVariableStore from '@/store/use-variable-store';
+import { convertVars } from '@/utils/convert-vars';
+import { useEffect } from 'react';
 
-const useLocalStorage = () => {
-  const [variables, setVariables] = useState<Record<string, string> | undefined>();
+const useVariablesStorage = () => {
+  const { variables, setVariables } = useVariableStore();
 
   useEffect(() => {
     const data = localStorage.getItem('variables');
@@ -9,16 +11,13 @@ const useLocalStorage = () => {
       const parsedData = JSON.parse(data);
       setVariables(parsedData);
     }
-  }, []);
-
-  const getVariables = () => {
-    return variables;
-  };
+  }, [setVariables]);
 
   const addVariable = (newVariable: Record<string, string>) => {
     const newVariables = Object.assign({}, variables, newVariable);
     setVariables(newVariables);
     localStorage.setItem('variables', JSON.stringify(newVariables));
+    console.log(variables);
   };
 
   const deleteVariable = (key: string) => {
@@ -29,6 +28,9 @@ const useLocalStorage = () => {
     }
   };
 
-  return { getVariables, addVariable, deleteVariable };
+  const convert = (string: string) => convertVars(string, variables);
+
+  return { variables, convert, addVariable, deleteVariable };
 };
-export default useLocalStorage;
+
+export default useVariablesStorage;

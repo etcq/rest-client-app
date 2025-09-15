@@ -7,6 +7,7 @@ import Providers from '@/providers/providers';
 import { Header, Footer } from '@components';
 import { Container } from '@mui/material';
 import { layoutConfig } from '@/constants';
+import { Suspense } from 'react';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -39,10 +40,11 @@ export default async function LocaleLayout({ children, params }: ILocaleProps) {
             component="main"
             sx={{
               mt: 10,
+              p: 1,
               minHeight: `calc(100vh - ${layoutConfig.headerHeight}px - ${layoutConfig.footerHeight}px)`,
             }}
           >
-            {children}
+            <Suspense>{children}</Suspense>
           </Container>
           <Footer />
         </Providers>

@@ -17,5 +17,8 @@
   "Auth": {
     "noAccount": "Don't have an account? ",
     "haveAccount": "Already have an account? "
+  },
+  "Loading": {
+    "loading": "Loading"
   }
 }

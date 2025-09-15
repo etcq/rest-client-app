@@ -1,6 +1,6 @@
 'use client';
 
-import useLocalStorage from '@/hooks/use-local-storage';
+import useVariablesStorage from '@/hooks/use-variables-storage';
 import {
   TableContainer,
   Paper,
@@ -15,17 +15,14 @@ import {
   TextField,
 } from '@mui/material';
 import VariablesTableRow from '../variables-table-row/variables-table-row';
+import convertFormData from '@/utils/convert-formdata';
 
-export const VariablesTable = () => {
-  const { getVariables, addVariable, deleteVariable } = useLocalStorage();
-  const variables = getVariables();
+const VariablesTable = () => {
+  const { variables, addVariable, deleteVariable } = useVariablesStorage();
 
   const handleAddVariable = (formData: FormData) => {
-    if (formData.get('key') && formData.get('value')) {
-      const key = formData.get('key')?.toString() || '';
-      const value = formData.get('value')?.toString() || '';
-      addVariable({ [key]: value });
-    }
+    const [key, value] = convertFormData(formData);
+    addVariable({ [key]: value });
   };
 
   return (
@@ -61,3 +58,5 @@ export const VariablesTable = () => {
     </Container>
   );
 };
+
+export default VariablesTable;

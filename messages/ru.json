@@ -18,5 +18,8 @@
   "Auth": {
     "noAccount": "Нет аккаунта? ",
     "haveAccount": "Уже есть аккаунт? "
+  },
+  "Loading": {
+    "loading": "Загрузка"
   }
 }
