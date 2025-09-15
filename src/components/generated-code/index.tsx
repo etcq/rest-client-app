@@ -61,17 +61,24 @@ export const GeneratedCode = ({ url, method, body, headers }: IRequestData): JSX
   const selectedSnippet = selectedLang ? snippets[`${selectedLang.language}-${selectedLang.variant}`] : '';
 
   return (
-    <Box sx={{ mt: 2 }}>
-      <Select value={selectedLanguage} onChange={(event): void => setSelectedLanguage(event.target.value)}>
-        {LANGUAGES.map(
-          (language): JSX.Element => (
-            <MenuItem key={language.label} value={language.label}>
-              {language.label}
-            </MenuItem>
-          )
-        )}
-      </Select>
-      <Box sx={{ mt: 2 }}>
+    <Box>
+      <Box sx={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+        <Typography>Language</Typography>
+        <Select
+          value={selectedLanguage}
+          onChange={(event): void => setSelectedLanguage(event.target.value)}
+          size={'small'}
+        >
+          {LANGUAGES.map(
+            (language): JSX.Element => (
+              <MenuItem key={language.label} value={language.label}>
+                {language.label}
+              </MenuItem>
+            )
+          )}
+        </Select>
+      </Box>
+      <Box>
         <SyntaxHighlighter language={selectedLang?.language} style={materialDark}>
           {selectedSnippet || 'Generating...'}
         </SyntaxHighlighter>
