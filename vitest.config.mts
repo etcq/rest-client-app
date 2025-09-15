@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   test: {
     server: {
-      deps: { inline: ['next-intl'] },
+      deps: { inline: ['next-intl', 'next-auth'] },
     },
     environment: 'jsdom',
     setupFiles: ['./src/setup-tests.ts'],
@@ -23,6 +23,7 @@ export default defineConfig({
         '**/src/i18n/**',
         'next-env.d.ts',
         '**/src/middleware.ts',
+        '**/src/generated/**',
       ],
       ignoreEmptyLines: true,
     },
