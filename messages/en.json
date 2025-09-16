@@ -26,7 +26,8 @@
         "key": "Key",
         "value": "value"
       },
-      "body": "Enter request body here..."
+      "body": "Enter request body here...",
+      "code": "Not enough details to generate code. Please provide a valid URL"
     },
     "labels": {
       "selects": {

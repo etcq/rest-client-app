@@ -5,6 +5,7 @@ import { Request } from 'postman-collection';
 import { useEffect, useState, type JSX } from 'react';
 import { Box, MenuItem, Select, Typography } from '@mui/material';
 import type { IRequestData } from '@interfaces';
+import { useTranslations } from 'next-intl';
 
 const LANGUAGES = [
   { label: 'JavaScript (Fetch)', language: 'javascript', variant: 'fetch' },
@@ -20,6 +21,8 @@ const LANGUAGES = [
 export const GeneratedCode = ({ url, method, body, headers }: IRequestData): JSX.Element => {
   const [snippets, setSnippets] = useState<Record<string, string>>({});
   const [selectedLanguage, setSelectedLanguage] = useState(LANGUAGES[0].label);
+
+  const t = useTranslations('restfulPage');
 
   useEffect((): void => {
     if (!url) {
@@ -52,7 +55,7 @@ export const GeneratedCode = ({ url, method, body, headers }: IRequestData): JSX
   if (!url) {
     return (
       <Box sx={{ mt: 2 }}>
-        <Typography color="text.secondary">Not enough details to generate code. Please provide a valid URL.</Typography>
+        <Typography color="text.secondary">{t('placeholders.code')}</Typography>
       </Box>
     );
   }

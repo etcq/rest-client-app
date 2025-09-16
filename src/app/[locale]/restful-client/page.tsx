@@ -1,60 +1,41 @@
 'use client';
 
 import { Box, Typography, TextField, Button } from '@mui/material';
-import { useState, useEffect, type JSX } from 'react';
+import { useState, useEffect } from 'react';
 import { METHODS, TABS } from '@constants';
 import { useTranslations } from 'next-intl';
 import SelectField from '@/components/methods-select';
-import HeadersRow from '@/components/headers-row';
 import useRequestStore from '@store/use-request.store';
 import { useFetchClient } from '@hooks/use-fetch-client';
-import { renderResponseBody } from '@utils/render-response-body';
-import { isValidUrl } from '@utils/url-validation';
-import { GeneratedCode } from '@/components/generated-code';
 import { encodeRequestToUrl, decodeUrlToRequest } from '@utils/url-route';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { isValidUrl } from '@utils/url-validation';
 import { convertHeadersArrayToObject } from '@utils/headers';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { renderResponseBody } from '@utils/render-response-body';
+import TabContainer, { type ITabItem } from '@/components/tabs/container';
+import HeadersTab from '@/components/tabs/headers/insex';
+import BodyTab from '@/components/tabs/body';
+import CodeTab from '@/components/tabs/code';
 
-const tabs: { id: string; label: string }[] = [
-  { id: TABS.HEADERS, label: 'Headers' },
-  { id: TABS.BODY, label: 'Body' },
-  { id: TABS.CODE, label: 'Generated Code' },
-];
-
-type TActiveTab = 'headers' | 'body' | 'code';
-
-export default function RestfulClient(): JSX.Element {
+export default function RestfulClient() {
   const [method, setMethod] = useState<METHODS>(METHODS.GET);
-  const [activeTab, setActiveTab] = useState<TActiveTab>('headers');
   const [url, setUrl] = useState<string>('');
   const [body, setBody] = useState<string>('');
 
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const headers = useRequestStore((state) => state.headers);
-  const addHeader = useRequestStore((state) => state.addHeader);
-  const setHeaders = useRequestStore((state) => state.setHeaders);
-
+  const { headers, addHeader, setHeaders } = useRequestStore((state) => state);
   const { response, loading, sendRequest } = useFetchClient();
-
   const t = useTranslations('restfulPage');
 
   const headersObject = convertHeadersArrayToObject(headers);
+  const urlError = url.length > 0 && !isValidUrl(url);
 
-  const urlError: boolean = url.length > 0 && !isValidUrl(url);
-
-  const handleSend = async (): Promise<void> => {
+  const handleSend = async () => {
     if (!isValidUrl(url)) return;
-
     void sendRequest(url, method, headersObject, body);
-
-    const routeUrl = encodeRequestToUrl({
-      url,
-      method,
-      body,
-      headers: headersObject,
-    });
+    const routeUrl = encodeRequestToUrl({ url, method, body, headers: headersObject });
     router.push(routeUrl);
   };
 
@@ -80,68 +61,46 @@ export default function RestfulClient(): JSX.Element {
     }
   }, [searchParams, setHeaders]);
 
+  const tabItems: ITabItem[] = [
+    {
+      id: TABS.HEADERS,
+      label: t('labels.tabs.headers'),
+      content: <HeadersTab headers={headers} addHeader={addHeader} />,
+    },
+    {
+      id: TABS.BODY,
+      label: t('labels.tabs.body'),
+      content: <BodyTab body={body} setBody={setBody} placeholder={t('placeholders.body')} />,
+    },
+    {
+      id: TABS.CODE,
+      label: t('labels.tabs.code'),
+      content: <CodeTab url={url} method={method} body={body} headers={headersObject} />,
+    },
+  ];
+
   return (
-    <Box sx={{ width: '100%' }}>
-      <Typography>{t('title')}</Typography>
-      <Box sx={{ display: 'flex', gap: '1' }}>
-        <SelectField value={method} onChange={(event): void => setMethod(event.target.value as METHODS)} />
+    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', minHeight: '100%', gap: '10px' }}>
+      <Box sx={{ display: 'flex', gap: '10px', mx: 'auto', width: '100%', maxWidth: '800px', mt: '30px' }}>
+        <SelectField value={method} onChange={(e) => setMethod(e.target.value as METHODS)} />
         <TextField
+          size="small"
+          fullWidth
           placeholder={t('placeholders.url')}
           value={url}
-          onChange={(event): void => setUrl(event.target.value)}
+          onChange={(e) => setUrl(e.target.value)}
           error={urlError}
-          helperText={urlError ? 'incorrect url' : ' '}
-        ></TextField>
-        <Button variant="contained" disabled={!isValidUrl(url)} onClick={handleSend}>
+          helperText={urlError ? t('errors.incorrectUrl') : ' '}
+          sx={{ maxWidth: '600px' }}
+        />
+        <Button variant="contained" disabled={!isValidUrl(url)} onClick={handleSend} sx={{ maxHeight: '40px' }}>
           {loading ? 'Loading...' : t('labels.buttons.send')}
         </Button>
       </Box>
-      <Box>
-        {tabs.map(
-          (tab): JSX.Element => (
-            <Button
-              key={tab.id}
-              variant={activeTab === tab.id ? 'contained' : 'outlined'}
-              onClick={(): void => setActiveTab(tab.id as TActiveTab)}
-            >
-              {tab.label}
-            </Button>
-          )
-        )}
-      </Box>
-      {activeTab === TABS.HEADERS && (
-        <Box>
-          <Typography>Headers</Typography>
-          <Button variant={'outlined'} onClick={addHeader}>
-            add header
-          </Button>
-          {headers.map(
-            (header): JSX.Element => (
-              <HeadersRow key={header.id} header={header} />
-            )
-          )}
-        </Box>
-      )}
-      {activeTab === TABS.BODY && (
-        <Box>
-          <Typography>Body</Typography>
-          <TextField
-            multiline
-            minRows={'6'}
-            fullWidth
-            placeholder={t('placeholders.body')}
-            value={body}
-            onChange={(event): void => setBody(event.target.value)}
-          ></TextField>
-        </Box>
-      )}
-      {activeTab === TABS.CODE && (
-        <Box>
-          <Typography>Generated Code</Typography>
-          <GeneratedCode url={url} method={method} body={body} headers={headersObject} />
-        </Box>
-      )}
-      <Box>
+
+      <TabContainer tabs={tabItems} />
+
+      <Box sx={{ mt: 'auto', maxHeight: '34vh', overflow: 'auto', mb: '5px' }}>
         {response.status !== undefined && (
           <>
             <Typography>Status: {response.status}</Typography>
