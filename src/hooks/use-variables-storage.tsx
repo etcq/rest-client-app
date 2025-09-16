@@ -17,7 +17,6 @@ const useVariablesStorage = () => {
     const newVariables = Object.assign({}, variables, newVariable);
     setVariables(newVariables);
     localStorage.setItem('variables', JSON.stringify(newVariables));
-    console.log(variables);
   };
 
   const deleteVariable = (key: string) => {

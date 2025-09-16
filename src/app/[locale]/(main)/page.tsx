@@ -1,5 +1,5 @@
 'use client';
-import { MainMenu } from '@components';
+import { Loading, MainMenu } from '@components';
 import { Avatar, Box, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import React from 'react';
@@ -10,7 +10,8 @@ const avatarEndpoint = '.png?size=50';
 
 export default function MainPage() {
   const t = useTranslations('MainPage');
-  const isAuth = useAuthStore((state) => state.isAuth);
+  const authStatus = useAuthStore((state) => state.status);
+  if (authStatus === 'loading') return <Loading />;
   return (
     <Box
       sx={{
@@ -23,7 +24,7 @@ export default function MainPage() {
       }}
     >
       <Typography variant="h1" sx={{ mb: 4, textAlign: 'center', fontWeight: 700 }}>
-        {isAuth ? t('titleAuth') : t('titleUnauth')}
+        {authStatus === 'authenticated' ? t('titleAuth') : t('titleUnauth')}
       </Typography>
       <Box sx={{ my: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Typography width={600}>{t('description')}</Typography>
@@ -44,7 +45,7 @@ export default function MainPage() {
           ))}
         </List>
       </Box>
-      <MainMenu isAuth={isAuth} />
+      <MainMenu isAuth={authStatus === 'authenticated'} />
     </Box>
   );
 }
