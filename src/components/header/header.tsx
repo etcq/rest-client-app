@@ -10,6 +10,7 @@ import { appName, layoutConfig, paths } from '@constants';
 import usePageScroll from '@/hooks/use-page-scroll';
 import { useAuthStore } from '@/store/auth-store';
 import { logout } from '@/actions/sign-out';
+import useVariableStore from '@/store/use-variable-store';
 
 interface INavItem {
   text: string;
@@ -20,6 +21,7 @@ interface INavItem {
 export const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { status, setAuthState } = useAuthStore((state) => state);
+  const { setVariables } = useVariableStore();
   const t = useTranslations('Navigation');
   const pageScroll = usePageScroll();
 
@@ -29,6 +31,7 @@ export const Header = () => {
 
   const handleLogout = async () => {
     await logout();
+    setVariables({});
     setAuthState('unauthenticated', null);
   };
 

@@ -7,9 +7,8 @@ import { TextField, Button, Box, Typography, Link } from '@mui/material';
 import { type SignInInput, type SignUpInput, signInSchema, signUpSchema } from '@/schema/auth-schema';
 import { loginWithCredentials } from '@/actions/sign-in';
 import { registerUser } from '@/actions/register';
-import { redirect } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useAuthStore } from '@/store/auth-store';
+import { redirect } from 'next/navigation';
 
 interface IProps {
   type: 'login' | 'register';
@@ -22,7 +21,6 @@ const AuthForm: FC<IProps> = ({ type }) => {
   const tError = useTranslations('AuthValidation');
   const isLogin = type === 'login';
   const schema = isLogin ? signInSchema : signUpSchema;
-  const { setAuthState } = useAuthStore();
 
   const {
     register,
@@ -35,15 +33,11 @@ const AuthForm: FC<IProps> = ({ type }) => {
   const nameError = (errors as FieldErrors<SignUpInput>).name?.message;
 
   const onSubmit = async (formData: TFormValues) => {
-    if (isLogin) {
-      const { email, password } = formData as SignInInput;
-      await loginWithCredentials(email, password);
-    } else {
+    const { email, password } = formData as SignInInput;
+    if (!isLogin) {
       await registerUser(formData as SignUpInput);
-      const { email, password } = formData as SignUpInput;
-      await loginWithCredentials(email, password);
     }
-    setAuthState('authenticated');
+    await loginWithCredentials(email, password);
     redirect('/');
   };
 
