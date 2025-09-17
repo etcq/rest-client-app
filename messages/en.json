@@ -21,6 +21,36 @@
     "noAccount": "Don't have an account? ",
     "haveAccount": "Already have an account? "
   },
+  "restfulPage": {
+    "title": "REST client",
+    "placeholders": {
+      "url": "Enter URL",
+      "headers": {
+        "key": "Key",
+        "value": "value"
+      },
+      "body": "Enter request body here...",
+      "code": "Not enough details to generate code. Please provide a valid URL"
+    },
+    "labels": {
+      "selects": {
+        "method": "method"
+      },
+      "buttons": {
+        "send" : "send",
+        "add": "Add"
+      },
+      "tabs": {
+        "headers": "Headers",
+        "body": "Body",
+        "code": "Generated Code"
+      }
+    },
+    "errors": {
+      "response": "Unsupported content type",
+      "incorrectUrl": "Incorrect Url"
+    }
+
   "AuthValidation": {
     "name": "Name is required",
     "nameUppercase": "Name must start with an uppercase letter",
