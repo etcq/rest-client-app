@@ -11,7 +11,8 @@
     "format:fix": "prettier --write .",
     "prepare": "husky",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "prisma": "npx prisma generate"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
