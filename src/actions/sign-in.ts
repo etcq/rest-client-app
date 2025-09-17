@@ -9,7 +9,6 @@ export async function loginWithCredentials(email: string, password: string) {
       password,
       redirect: false,
     });
-    console.log(result);
     return result;
   } catch (error) {
     throw new Error(`Authentication error: ${error}`);
