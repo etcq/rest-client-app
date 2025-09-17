@@ -1,17 +1,18 @@
 import { appName } from '@/constants';
-import { Box, Typography, Divider, List, ListItem, ListItemButton, ListItemText, Drawer } from '@mui/material';
-import Link from 'next/link';
+import { Box, Typography, Divider, List, ListItem, Drawer } from '@mui/material';
 import React from 'react';
+import { NavButton } from '../nav-button/nav-button';
 
 interface IDrawerProps {
   handleDrawerToggle: () => void;
   navItems: { text: string; path: string }[];
   isOpen: boolean;
+  logout: () => void;
 }
 
 const drawerWidth = 240;
 
-export const Sidebar = ({ handleDrawerToggle, navItems, isOpen }: IDrawerProps) => {
+export const Sidebar = ({ handleDrawerToggle, navItems, isOpen, logout }: IDrawerProps) => {
   return (
     <Drawer
       variant="temporary"
@@ -32,12 +33,8 @@ export const Sidebar = ({ handleDrawerToggle, navItems, isOpen }: IDrawerProps) 
         <Divider />
         <List sx={{ mt: 4 }} component="nav">
           {navItems.map((item) => (
-            <ListItem key={item.text} sx={{ justifyContent: 'center' }}>
-              <Link href={item.path}>
-                <ListItemButton sx={{ textAlign: 'center' }}>
-                  <ListItemText primary={item.text} />
-                </ListItemButton>
-              </Link>
+            <ListItem key={item.text} sx={{ justifyContent: 'center' }} onClick={logout}>
+              <NavButton key={item.text} {...item} />
             </ListItem>
           ))}
         </List>

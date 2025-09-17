@@ -12,12 +12,11 @@ interface IProps {
 const AppLoader = ({ children }: IProps) => {
   const { data: session, status } = useSession();
   const { setAuthState } = useAuthStore();
-  const { initStorage } = useVariablesStorage();
+  useVariablesStorage();
 
   useEffect(() => {
     setAuthState(status, session);
-    initStorage(session?.user?.email);
-  }, [status, session, setAuthState, initStorage]);
+  }, [status, session, setAuthState]);
 
   return <>{children}</>;
 };

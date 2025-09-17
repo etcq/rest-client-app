@@ -1,21 +1,21 @@
+import { useAuthStore } from '@/store/auth-store';
 import useVariableStore from '@/store/use-variable-store';
 import { convertVars } from '@/utils/convert-vars';
-import { useCallback } from 'react';
+import { useEffect } from 'react';
 
-const useVariablesStorage = (userEmail?: string | null) => {
+const useVariablesStorage = () => {
   const { variables, setVariables } = useVariableStore((state) => state);
+  const userEmail = useAuthStore((state) => state.session?.user?.email);
 
-  const initStorage = useCallback(
-    (userEmail?: string | null) => {
-      if (!userEmail) return;
+  useEffect(() => {
+    if (userEmail) {
       const data = localStorage.getItem(userEmail);
       if (data) {
         const parsedData = JSON.parse(data);
         setVariables(parsedData);
       }
-    },
-    [setVariables]
-  );
+    }
+  }, [setVariables, userEmail]);
 
   const addVariable = (newVariable: Record<string, string>) => {
     if (userEmail) {
@@ -35,7 +35,7 @@ const useVariablesStorage = (userEmail?: string | null) => {
 
   const convert = (string: string) => convertVars(string, variables);
 
-  return { variables, convert, addVariable, deleteVariable, initStorage };
+  return { variables, convert, addVariable, deleteVariable };
 };
 
 export default useVariablesStorage;

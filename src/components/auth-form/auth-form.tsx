@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC } from 'react';
+import { type FC } from 'react';
 import { type FieldErrors, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TextField, Button, Box, Typography, Link } from '@mui/material';
@@ -9,6 +9,8 @@ import { loginWithCredentials } from '@/actions/sign-in';
 import { registerUser } from '@/actions/register';
 import { useTranslations } from 'next-intl';
 import { redirect } from 'next/navigation';
+import { getSession } from 'next-auth/react';
+import { useAuthStore } from '@/store/auth-store';
 
 interface IProps {
   type: 'login' | 'register';
@@ -21,6 +23,7 @@ const AuthForm: FC<IProps> = ({ type }) => {
   const tError = useTranslations('AuthValidation');
   const isLogin = type === 'login';
   const schema = isLogin ? signInSchema : signUpSchema;
+  const { setAuthState } = useAuthStore();
 
   const {
     register,
@@ -38,7 +41,11 @@ const AuthForm: FC<IProps> = ({ type }) => {
       await registerUser(formData as SignUpInput);
     }
     await loginWithCredentials(email, password);
-    redirect('/');
+    const freshData = await getSession();
+    if (freshData) {
+      setAuthState('authenticated', freshData);
+      redirect('/');
+    }
   };
 
   return (

@@ -1,22 +1,17 @@
 'use client';
 import { useState } from 'react';
-import { AppBar, Box, IconButton, Toolbar, Typography, Button, Container } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, Typography, Container } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Image from 'next/image';
 import { Link } from '@i18n/navigation';
-import { LangSwitcher, Sidebar } from '@components';
+import { LangSwitcher, NavButton, Sidebar } from '@components';
 import { useTranslations } from 'next-intl';
 import { appName, layoutConfig, paths } from '@constants';
 import usePageScroll from '@/hooks/use-page-scroll';
 import { useAuthStore } from '@/store/auth-store';
 import { logout } from '@/actions/sign-out';
 import useVariableStore from '@/store/use-variable-store';
-
-interface INavItem {
-  text: string;
-  path: string;
-  func?: () => void;
-}
+import { redirect } from 'next/navigation';
 
 export const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -33,17 +28,20 @@ export const Header = () => {
     await logout();
     setVariables({});
     setAuthState('unauthenticated', null);
+    redirect('/');
   };
 
-  const authNavItems: INavItem[] = [
+  const authNavItems = [
     { text: t('login'), path: paths.login },
     { text: t('registration'), path: paths.registration },
   ];
 
-  const unauthNavItems: INavItem[] = [
+  const unauthNavItems = [
     { text: t('main'), path: paths.main },
     { text: t('logout'), path: paths.main, func: handleLogout },
   ];
+
+  const navItems = status !== 'authenticated' ? authNavItems : unauthNavItems;
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -81,27 +79,14 @@ export const Header = () => {
               sx={{ display: { xs: 'none', sm: 'flex' }, mr: 2, width: '26%', justifyContent: 'flex-end', gap: 2 }}
               component="nav"
             >
-              {(status !== 'authenticated' ? authNavItems : unauthNavItems).map((item) => (
-                <Button
-                  key={item.text}
-                  sx={{ color: '#fff' }}
-                  loading={status === 'loading'}
-                  data-testid={`header-btn-${item.path.slice(1)}`}
-                  onClick={item.func}
-                  variant="outlined"
-                >
-                  <Link href={item.path}>{item.text}</Link>
-                </Button>
+              {navItems.map((item) => (
+                <NavButton key={item.text} {...item} status={status} />
               ))}
             </Box>
           </Toolbar>
         </Container>
       </AppBar>
-      <Sidebar
-        handleDrawerToggle={handleDrawerToggle}
-        navItems={status !== 'authenticated' ? authNavItems : unauthNavItems}
-        isOpen={mobileOpen}
-      />
+      <Sidebar handleDrawerToggle={handleDrawerToggle} navItems={navItems} isOpen={mobileOpen} logout={logout} />
     </Box>
   );
 };
