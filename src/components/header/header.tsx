@@ -38,7 +38,7 @@ export const Header = () => {
 
   const unauthNavItems = [
     { text: t('main'), path: paths.main },
-    { text: t('logout'), path: paths.main, func: handleLogout },
+    { text: t('logout'), path: paths.main, onClick: handleLogout },
   ];
 
   const navItems = status !== 'authenticated' ? authNavItems : unauthNavItems;

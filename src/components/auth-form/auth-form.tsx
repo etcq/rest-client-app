@@ -41,9 +41,9 @@ const AuthForm: FC<IProps> = ({ type }) => {
       await registerUser(formData as SignUpInput);
     }
     await loginWithCredentials(email, password);
-    const freshData = await getSession();
-    if (freshData) {
-      setAuthState('authenticated', freshData);
+    const session = await getSession();
+    if (session) {
+      setAuthState('authenticated', session);
       redirect('/');
     }
   };

@@ -16,11 +16,10 @@ import {
 } from '@mui/material';
 import VariablesTableRow from '../variables-table-row/variables-table-row';
 import convertFormData from '@/utils/convert-formdata';
-import { useAuthStore } from '@/store/auth-store';
 
 const VariablesTable = () => {
-  const userEmail = useAuthStore((state) => state.session?.user?.email);
-  const { variables, addVariable, deleteVariable } = useVariablesStorage(userEmail);
+  const { variables, addVariable, deleteVariable } = useVariablesStorage();
+
   const handleAddVariable = (formData: FormData) => {
     const [key, value] = convertFormData(formData);
     addVariable({ [key]: value });

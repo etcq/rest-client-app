@@ -10,9 +10,13 @@ const useVariablesStorage = () => {
   useEffect(() => {
     if (userEmail) {
       const data = localStorage.getItem(userEmail);
-      if (data) {
-        const parsedData = JSON.parse(data);
-        setVariables(parsedData);
+      try {
+        if (data) {
+          const parsedData = JSON.parse(data);
+          setVariables(parsedData);
+        }
+      } catch {
+        console.error('JSON parsed error');
       }
     }
   }, [setVariables, userEmail]);
