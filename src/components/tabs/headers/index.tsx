@@ -1,14 +1,11 @@
 import { Box, Typography } from '@mui/material';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import HeadersRow from '@/components/headers-row';
-import type { IHeader } from '@interfaces';
+import useRequestStore from '@store/use-request.store';
 
-interface IHeadersTabProps {
-  headers: IHeader[];
-  addHeader: () => void;
-}
+export default function HeadersTab() {
+  const { headers, addHeader } = useRequestStore((state) => state);
 
-export default function HeadersTab({ headers, addHeader }: IHeadersTabProps) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
       <Box sx={{ display: 'flex', gap: '20px' }}>
