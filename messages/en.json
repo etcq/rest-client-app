@@ -50,7 +50,7 @@
       "response": "Unsupported content type",
       "incorrectUrl": "Incorrect Url"
     }
-
+  },
   "AuthValidation": {
     "name": "Name is required",
     "nameUppercase": "Name must start with an uppercase letter",
@@ -62,5 +62,18 @@
     "passwordLowercase": "Password must contain at least one lowercase letter",
     "passwordNumber": "Password must contain at least one number",
     "passwordSpecial": "Password must contain at least one special character"
+  },
+  "History": {
+    "empty": "It's empty here.",
+    "noRequests": "You haven't executed any requests yet.",
+    "tryRest": "Try the RESTful Client",
+    "method": "Method",
+    "status": "Status",
+    "duration": "Duration (ms)",
+    "timestamp": "Timestamp",
+    "reqSize": "Req. Size (bytes)",
+    "resSize": "Res. Size (bytes)",
+    "error": "Error Details",
+    "endpoint": "Endpoint"
   }
 }

@@ -1,24 +1,27 @@
 import type { IHistoryRequest } from '@/interfaces';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 interface IProps {
   requests: IHistoryRequest[];
 }
 
 const HistoryTable = ({ requests }: IProps) => {
+  const t = useTranslations('History');
+
   return (
     <TableContainer component={Paper}>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Timestamp</TableCell>
-            <TableCell>Method</TableCell>
-            <TableCell>Endpoint</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Duration (ms)</TableCell>
-            <TableCell>Req. Size (bytes)</TableCell>
-            <TableCell>Res. Size (bytes)</TableCell>
-            <TableCell>Error Details</TableCell>
+            <TableCell>{t('timestamp')}</TableCell>
+            <TableCell>{t('method')}</TableCell>
+            <TableCell>{t('endpoint')}</TableCell>
+            <TableCell>{t('status')}</TableCell>
+            <TableCell>{t('duration')}</TableCell>
+            <TableCell>{t('reqSize')}</TableCell>
+            <TableCell>{t('resSize')}</TableCell>
+            <TableCell>{t('error')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -28,9 +31,9 @@ const HistoryTable = ({ requests }: IProps) => {
               <TableCell>{request.method}</TableCell>
               <TableCell>{request.endpoint}</TableCell>
               <TableCell>{request.statusCode}</TableCell>
-              <TableCell>{request.duration || 'N/A'}</TableCell>
-              <TableCell>{request.requestSize || 'N/A'}</TableCell>
-              <TableCell>{request.responseSize || 'N/A'}</TableCell>
+              <TableCell>{request.duration || '—'}</TableCell>
+              <TableCell>{request.requestSize || '—'}</TableCell>
+              <TableCell>{request.responseSize || '—'}</TableCell>
               <TableCell>{request.errorDetails || '—'}</TableCell>
             </TableRow>
           ))}
