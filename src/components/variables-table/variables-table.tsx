@@ -14,7 +14,7 @@ import {
   Box,
   TextField,
 } from '@mui/material';
-import VariablesTableRow from '../variables-table-row/variables-table-row';
+import { VariablesTableRow } from '@components';
 import convertFormData from '@/utils/convert-formdata';
 
 const VariablesTable = () => {

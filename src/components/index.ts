@@ -6,3 +6,4 @@ export * from './main-menu/main-menu';
 export * from './auth-form/auth-form';
 export * from './loading/loading';
 export * from './nav-button/nav-button';
+export * from './variables-table-row/variables-table-row';

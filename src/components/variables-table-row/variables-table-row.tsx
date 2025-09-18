@@ -7,7 +7,7 @@ interface IVariablesTableRowProps {
   onDelete: (key: string) => void;
 }
 
-const VariablesTableRow = ({ variableKey, value, onDelete }: IVariablesTableRowProps) => {
+export const VariablesTableRow = ({ variableKey, value, onDelete }: IVariablesTableRowProps) => {
   return (
     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
       <TableCell align="center">{`{{${variableKey}}}`}</TableCell>
@@ -20,5 +20,3 @@ const VariablesTableRow = ({ variableKey, value, onDelete }: IVariablesTableRowP
     </TableRow>
   );
 };
-
-export default VariablesTableRow;

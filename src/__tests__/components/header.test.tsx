@@ -13,8 +13,8 @@ describe('Header component', () => {
       </NextIntlClientProvider>
     );
     expect(screen.getByAltText('Logo')).toBeInTheDocument();
-    expect(screen.getByTestId('header-btn-login')).toBeInTheDocument();
-    expect(screen.getByTestId('header-btn-registration')).toBeInTheDocument();
+    expect(screen.getAllByTestId('header-btn-login')).toHaveLength(2);
+    expect(screen.getAllByTestId('header-btn-registration')).toHaveLength(2);
     expect(screen.getByRole('combobox')).toBeInTheDocument();
   });
   it('If the locale is RU, the text in the header should be translated for child components', () => {
@@ -23,8 +23,8 @@ describe('Header component', () => {
         <Header />
       </NextIntlClientProvider>
     );
-    expect(screen.getByTestId('header-btn-login')).toHaveTextContent('Войти');
-    expect(screen.getByTestId('header-btn-registration')).toHaveTextContent('Зарегестрироваться');
+    expect(screen.getAllByTestId('header-btn-login')[0]).toHaveTextContent('Войти');
+    expect(screen.getAllByTestId('header-btn-registration')[0]).toHaveTextContent('Зарегестрироваться');
     expect(screen.getByRole('combobox')).toHaveTextContent('RU');
   });
 });
