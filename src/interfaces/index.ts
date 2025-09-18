@@ -14,3 +14,15 @@ export interface IRequestData {
   body: string;
   headers: IHeader[];
 }
+
+export interface IRequestHistoryItem {
+  id: string;
+  timestamp: Date;
+  method: string;
+  url: string;
+  requestSize: number;
+  responseSize: number;
+  status?: number;
+  duration?: number;
+  error?: string;
+}
