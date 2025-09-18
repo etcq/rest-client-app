@@ -14,3 +14,15 @@ export interface IHeader {
   key: string;
   value: string;
 }
+
+export interface IHistoryRequest {
+  id?: string;
+  method: string;
+  statusCode: number;
+  duration: number;
+  timestamp: number;
+  requestSize: number;
+  responseSize: number;
+  errorDetails: string;
+  endpoint: string;
+}
