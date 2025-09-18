@@ -16,6 +16,7 @@ model User {
 
   accounts      Account[]
   sessions      Session[]
+  requests      Request[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -54,6 +55,21 @@ model Session {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Request {
+  id                String  @id @default(cuid())
+  method            String
+  statusCode        Int
+  duration          Int
+  timestamp         BigInt
+  requestSize       Int
+  responseSize      Int
+  errorDetails      String
+  endpoint          String
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
 }
 
 model VerificationToken {
