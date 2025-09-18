@@ -37,7 +37,7 @@
         "method": "method"
       },
       "buttons": {
-        "send" : "send",
+        "send": "send",
         "add": "Add"
       },
       "tabs": {
@@ -50,6 +50,7 @@
       "response": "Unsupported content type",
       "incorrectUrl": "Incorrect Url"
     }
+  },
 
   "AuthValidation": {
     "name": "Name is required",
