@@ -224,6 +224,7 @@ npm run preview
 8. `format:fix` - to fix linting issues TS and SCSS file with prettier and stylelint
 9. `test` - to run vitest testing mode
 10. `coverage` - to run vitest coverage
+11. `prisma` - generate prisma client
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

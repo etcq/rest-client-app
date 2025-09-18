@@ -1,19 +1,35 @@
 'use client';
 import { useState } from 'react';
-import { AppBar, Box, IconButton, Toolbar, Typography, Button, Container } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, Typography, Container } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Image from 'next/image';
 import { Link } from '@i18n/navigation';
-import { LangSwitcher, Sidebar } from '@components';
+import { LangSwitcher, NavButton, Sidebar } from '@components';
 import { useTranslations } from 'next-intl';
 import { appName, layoutConfig, paths } from '@constants';
 import usePageScroll from '@/hooks/use-page-scroll';
+import { useAuthStore } from '@/store/auth-store';
+import { logout } from '@/actions/sign-out';
+import useVariableStore from '@/store/use-variable-store';
+import { redirect } from 'next/navigation';
 
 export const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isAuth] = useState(false);
+  const { status, setAuthState } = useAuthStore((state) => state);
+  const { setVariables } = useVariableStore();
   const t = useTranslations('Navigation');
   const pageScroll = usePageScroll();
+
+  const handleDrawerToggle = () => {
+    setMobileOpen((prevState) => !prevState);
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    setVariables({});
+    setAuthState('unauthenticated', null);
+    redirect('/');
+  };
 
   const authNavItems = [
     { text: t('login'), path: paths.login },
@@ -22,12 +38,10 @@ export const Header = () => {
 
   const unauthNavItems = [
     { text: t('main'), path: paths.main },
-    { text: t('logout'), path: paths.main },
+    { text: t('logout'), path: paths.main, onClick: handleLogout },
   ];
 
-  const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
-  };
+  const navItems = status !== 'authenticated' ? authNavItems : unauthNavItems;
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -61,21 +75,18 @@ export const Header = () => {
             <Box>
               <LangSwitcher />
             </Box>
-            <Box sx={{ display: { xs: 'none', sm: 'block' }, mr: 2, width: '22%', textAlign: 'right' }} component="nav">
-              {(!isAuth ? authNavItems : unauthNavItems).map((item) => (
-                <Button key={item.text} sx={{ color: '#fff' }} data-testid={`header-btn-${item.path.slice(1)}`}>
-                  <Link href={item.path}>{item.text}</Link>
-                </Button>
+            <Box
+              sx={{ display: { xs: 'none', sm: 'flex' }, mr: 2, width: '26%', justifyContent: 'flex-end', gap: 2 }}
+              component="nav"
+            >
+              {navItems.map((item) => (
+                <NavButton key={item.text} {...item} status={status} />
               ))}
             </Box>
           </Toolbar>
         </Container>
       </AppBar>
-      <Sidebar
-        handleDrawerToggle={handleDrawerToggle}
-        navItems={!isAuth ? authNavItems : unauthNavItems}
-        isOpen={mobileOpen}
-      />
+      <Sidebar handleDrawerToggle={handleDrawerToggle} navItems={navItems} isOpen={mobileOpen} logout={logout} />
     </Box>
   );
 };

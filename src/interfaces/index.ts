@@ -2,6 +2,8 @@ export interface IChildrenNode {
   children: React.ReactNode;
 }
 
+export type SessionStatus = 'authenticated' | 'unauthenticated' | 'loading';
+
 export interface IRequestData {
   url: string;
   method: string;
@@ -14,3 +16,4 @@ export interface IHeader {
   key: string;
   value: string;
 }
+
