@@ -15,11 +15,13 @@ const HeadersRow = ({ header }: IHeadersRowProps) => {
     <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center', mb: '5px' }}>
       <TextField
         size={'small'}
+        value={header.key}
         placeholder={t('placeholders.headers.key')}
         onChange={(event) => updateHeader(header.id, event.target.value, header.value)}
       ></TextField>
       <TextField
         size={'small'}
+        value={header.value}
         placeholder={t('placeholders.headers.value')}
         onChange={(event) => updateHeader(header.id, header.key, event.target.value)}
       ></TextField>

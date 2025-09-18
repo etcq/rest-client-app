@@ -59,9 +59,7 @@ export default function RestfulClient() {
 
     if (decodedRequest.url) {
       setUrl(decodedRequest.url);
-
       setMethod(decodedRequest.method ? (decodedRequest.method as METHODS) : METHODS.GET);
-
       setBody(decodedRequest.body ?? '');
 
       const newHeaders = decodedRequest.headers?.length
@@ -91,7 +89,7 @@ export default function RestfulClient() {
     {
       id: TABS.CODE,
       label: t('labels.tabs.code'),
-      content: <CodeTab url={url} method={method} body={body} headers={headersObject} />,
+      content: <CodeTab url={url} method={method} body={body} headers={headers} />,
     },
   ];
 
