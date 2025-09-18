@@ -5,6 +5,7 @@
     "description": "This is the final project for the React course at Rsschool, a programming school. The aim of the project is to create a lightweight version of Postman within a single app.",
     "createdBy": "The development team:"
   },
+
   "Navigation": {
     "login": "Sign In",
     "registration": "Sign Up",
@@ -14,6 +15,7 @@
     "variables": "Variables",
     "main": "Main page"
   },
+
   "Auth": {
     "name": "Name",
     "email": "Email",
@@ -21,6 +23,7 @@
     "noAccount": "Don't have an account? ",
     "haveAccount": "Already have an account? "
   },
+
   "restfulPage": {
     "title": "REST client",
     "placeholders": {
@@ -37,7 +40,7 @@
         "method": "method"
       },
       "buttons": {
-        "send": "send",
+        "send" : "send",
         "add": "Add"
       },
       "tabs": {
@@ -63,5 +66,8 @@
     "passwordLowercase": "Password must contain at least one lowercase letter",
     "passwordNumber": "Password must contain at least one number",
     "passwordSpecial": "Password must contain at least one special character"
+  },
+  "Loading": {
+    "loading": "Loading"
   }
 }

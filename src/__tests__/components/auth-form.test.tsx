@@ -20,6 +20,13 @@ vi.mock('next/navigation', () => ({
   redirect: vi.fn(),
 }));
 
+vi.mock('next-auth/react', () => ({
+  getSession: vi.fn().mockResolvedValue({
+    user: { email: 'test@gmail.com' },
+    expires: new Date().toISOString(),
+  }),
+}));
+
 beforeEach(() => {
   vi.clearAllMocks();
 });
@@ -59,9 +66,10 @@ describe('AuthForm', () => {
 
       const mockedLoginWithCredentials = vi.mocked(loginWithCredentials);
       const mockedRedirect = vi.mocked(redirect);
-
-      await waitFor(() => expect(mockedLoginWithCredentials).toHaveBeenCalledWith('test@gmail.com', 'Password123$'));
-      expect(mockedRedirect).toHaveBeenCalledWith('/');
+      await waitFor(() => {
+        expect(mockedLoginWithCredentials).toHaveBeenCalledWith('test@gmail.com', 'Password123$');
+        expect(mockedRedirect).toHaveBeenCalledWith('/');
+      });
     });
   });
 

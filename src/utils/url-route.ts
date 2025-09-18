@@ -2,6 +2,7 @@ import type { IRequestData, IHeader } from '@interfaces';
 import { Base64 } from 'js-base64';
 import type { METHODS } from '@constants';
 
+
 export const encodeRequestToUrl = (requestData: IRequestData): string => {
   const { method, url, body, headers } = requestData;
 
@@ -52,16 +53,12 @@ export const decodeUrlToRequest = (url: string): Partial<IRequestData> => {
 
     return {
       method,
-
       url: decodedUrl,
-
       body: decodedBody,
-
       headers,
     };
   } catch (error) {
     console.error('Failed to decode URL:', error);
-
     return {};
   }
 };
