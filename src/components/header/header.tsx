@@ -3,20 +3,20 @@ import { useState } from 'react';
 import { AppBar, Box, IconButton, Toolbar, Typography, Container } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Image from 'next/image';
-import { Link } from '@i18n/navigation';
+import { Link, redirect } from '@i18n/navigation';
 import { LangSwitcher, NavButton, Sidebar } from '@components';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { appName, layoutConfig, paths } from '@constants';
 import usePageScroll from '@/hooks/use-page-scroll';
 import { useAuthStore } from '@/store/auth-store';
 import { logout } from '@/actions/sign-out';
 import useVariableStore from '@/store/use-variable-store';
-import { redirect } from 'next/navigation';
 
 export const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { status, setAuthState } = useAuthStore((state) => state);
   const { setVariables } = useVariableStore();
+  const locale = useLocale();
   const t = useTranslations('Navigation');
   const pageScroll = usePageScroll();
 
@@ -28,7 +28,7 @@ export const Header = () => {
     await logout();
     setVariables({});
     setAuthState('unauthenticated', null);
-    redirect('/');
+    redirect({ href: '/', locale: locale });
   };
 
   const authNavItems = [

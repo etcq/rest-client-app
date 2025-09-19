@@ -1,7 +1,22 @@
-import createMiddleware from 'next-intl/middleware';
-import { routing } from './i18n/routing';
+import { auth } from '@/auth/auth';
 
-export default createMiddleware(routing);
+const authPaths = ['login', 'registration'];
+const privatePaths = ['rest', 'variables', 'history'];
+
+export default auth((req) => {
+  const [, locale, path] = req.nextUrl.pathname.split('/');
+  console.log(locale, path);
+
+  if (!req.auth && privatePaths.includes(path)) {
+    const newUrl = new URL(`/${locale}`, req.nextUrl.origin);
+    return Response.redirect(newUrl);
+  }
+
+  if (req.auth && authPaths.includes(path)) {
+    const newUrl = new URL(`/${locale}`, req.nextUrl.origin);
+    return Response.redirect(newUrl);
+  }
+});
 
 export const config = {
   matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)',
