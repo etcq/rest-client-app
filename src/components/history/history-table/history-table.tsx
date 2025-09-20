@@ -1,9 +1,10 @@
-import type { IHistoryRequest } from '@/interfaces';
+import type { IRequestHistoryItem } from '@/interfaces';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { useTranslations } from 'next-intl';
+import HistoryTableCell from '../history-table-cell/history-table-cell';
 
 interface IProps {
-  requests: IHistoryRequest[];
+  requests: IRequestHistoryItem[];
 }
 
 const HistoryTable = ({ requests }: IProps) => {
@@ -25,16 +26,16 @@ const HistoryTable = ({ requests }: IProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {requests.map((request: IHistoryRequest) => (
-            <TableRow key={request.id}>
-              <TableCell>{new Date(request.timestamp).toLocaleString()}</TableCell>
-              <TableCell>{request.method}</TableCell>
-              <TableCell>{request.endpoint}</TableCell>
-              <TableCell>{request.statusCode}</TableCell>
-              <TableCell>{request.duration || '—'}</TableCell>
-              <TableCell>{request.requestSize || '—'}</TableCell>
-              <TableCell>{request.responseSize || '—'}</TableCell>
-              <TableCell>{request.errorDetails || '—'}</TableCell>
+          {requests.map((request) => (
+            <TableRow key={request.id} hover sx={{ cursor: 'pointer' }}>
+              <HistoryTableCell path={request.path}>{new Date(request.timestamp).toLocaleString()}</HistoryTableCell>
+              <HistoryTableCell path={request.path}>{request.method}</HistoryTableCell>
+              <HistoryTableCell path={request.path}>{request.endpoint}</HistoryTableCell>
+              <HistoryTableCell path={request.path}>{request.statusCode || '—'}</HistoryTableCell>
+              <HistoryTableCell path={request.path}>{request.duration || '—'}</HistoryTableCell>
+              <HistoryTableCell path={request.path}>{request.requestSize || '—'}</HistoryTableCell>
+              <HistoryTableCell path={request.path}>{request.responseSize || '—'}</HistoryTableCell>
+              <HistoryTableCell path={request.path}>{request.errorDetails || '—'}</HistoryTableCell>
             </TableRow>
           ))}
         </TableBody>
