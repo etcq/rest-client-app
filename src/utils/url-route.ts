@@ -2,7 +2,6 @@ import type { IRequestData, IHeader } from '@interfaces';
 import { Base64 } from 'js-base64';
 import type { METHODS } from '@constants';
 
-
 export const encodeRequestToUrl = (requestData: IRequestData): string => {
   const { method, url, body, headers } = requestData;
 
