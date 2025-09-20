@@ -5,7 +5,6 @@ const privatePaths = ['rest', 'variables', 'history'];
 
 export default auth((req) => {
   const [, locale, path] = req.nextUrl.pathname.split('/');
-  console.log(locale, path);
 
   if (!req.auth && privatePaths.includes(path)) {
     const newUrl = new URL(`/${locale}`, req.nextUrl.origin);

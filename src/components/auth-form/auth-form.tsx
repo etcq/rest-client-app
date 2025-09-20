@@ -44,7 +44,6 @@ const AuthForm: FC<IProps> = ({ type }) => {
     const session = await getSession();
     if (session) {
       setAuthState('authenticated', session);
-      console.log(locale);
       redirect({ href: '/', locale: locale });
     }
   };
