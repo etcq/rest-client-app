@@ -12,6 +12,7 @@ import { useAuthStore } from '@/store/auth-store';
 import { logout } from '@/actions/sign-out';
 import useVariableStore from '@/store/use-variable-store';
 import { redirect } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 export const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -28,6 +29,7 @@ export const Header = () => {
     await logout();
     setVariables({});
     setAuthState('unauthenticated', null);
+    toast.success('You have successfully logged out');
     redirect('/');
   };
 

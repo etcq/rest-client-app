@@ -5,6 +5,7 @@ import { SessionProvider } from 'next-auth/react';
 import theme from '@/theme/theme';
 import { auth } from '@/auth/auth';
 import AppLoader from '@/hoc/app-loader';
+import { Toaster } from 'react-hot-toast';
 
 interface IProvidersProps {
   children: React.ReactNode;
@@ -21,6 +22,7 @@ export default async function Providers({ children, locale, messages }: IProvide
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <NextIntlClientProvider locale={locale} messages={messages}>
+              <Toaster />
               {children}
             </NextIntlClientProvider>
           </ThemeProvider>

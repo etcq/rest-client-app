@@ -2,6 +2,7 @@ import { useAuthStore } from '@/store/auth-store';
 import useVariableStore from '@/store/use-variable-store';
 import { convertVars } from '@/utils/convert-vars';
 import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 const useVariablesStorage = () => {
   const { variables, setVariables } = useVariableStore((state) => state);
@@ -16,7 +17,7 @@ const useVariablesStorage = () => {
           setVariables(parsedData);
         }
       } catch {
-        console.error('JSON parsed error');
+        toast.error("Can't get a variables");
       }
     }
   }, [setVariables, userEmail]);
