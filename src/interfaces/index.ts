@@ -2,12 +2,7 @@ export interface IChildrenNode {
   children: React.ReactNode;
 }
 
-export interface IRequestData {
-  url: string;
-  method: string;
-  body: string;
-  headers: Record<string, string>;
-}
+export type SessionStatus = 'authenticated' | 'unauthenticated' | 'loading';
 
 export interface IHeader {
   id: string;
@@ -15,14 +10,21 @@ export interface IHeader {
   value: string;
 }
 
-export interface IHistoryRequest {
-  id?: string;
+export interface IRequestData {
+  url: string;
   method: string;
-  statusCode: number;
-  duration: number;
-  timestamp: number;
+  body: string;
+  headers: IHeader[];
+}
+
+export interface IRequestHistoryItem {
+  id: string;
+  timestamp: Date;
+  method: string;
+  url: string;
   requestSize: number;
   responseSize: number;
-  errorDetails: string;
-  endpoint: string;
+  status?: number;
+  duration?: number;
+  error?: string;
 }

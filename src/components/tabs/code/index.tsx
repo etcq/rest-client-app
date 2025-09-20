@@ -1,19 +1,8 @@
 import { Box } from '@mui/material';
 import { GeneratedCode } from '@/components/generated-code';
-import type { METHODS } from '@constants';
+import type { IRequestData } from '@interfaces';
 
-interface CodeTabProps {
-  url: string;
-  method: METHODS;
-  body: string;
-  headers: IHeaderObject;
-}
-
-export interface IHeaderObject {
-  [key: string]: string;
-}
-
-export default function CodeTab({ url, method, body, headers }: CodeTabProps) {
+export default function CodeTab({ url, method, body, headers }: IRequestData) {
   return (
     <Box>
       <GeneratedCode url={url} method={method} body={body} headers={headers} />

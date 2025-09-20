@@ -7,7 +7,6 @@ export async function logout() {
     const result = await signOut({
       redirect: false,
     });
-
     return result;
   } catch (error) {
     throw new Error(`Authentication error: ${error}`);

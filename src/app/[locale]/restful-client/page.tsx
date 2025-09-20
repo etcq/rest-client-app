@@ -6,52 +6,109 @@ import { METHODS, TABS } from '@constants';
 import { useTranslations } from 'next-intl';
 import SelectField from '@/components/methods-select';
 import useRequestStore from '@store/use-request.store';
-import { useFetchClient } from '@hooks/use-fetch-client';
 import { encodeRequestToUrl, decodeUrlToRequest } from '@utils/url-route';
 import { isValidUrl } from '@utils/url-validation';
-import { convertHeadersArrayToObject } from '@utils/headers';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { renderResponseBody } from '@utils/render-response-body';
 import TabContainer, { type ITabItem } from '@/components/tabs/container';
-import HeadersTab from '@/components/tabs/headers/insex';
+import HeadersTab from '@/components/tabs/headers';
 import BodyTab from '@/components/tabs/body';
 import CodeTab from '@/components/tabs/code';
+import { useLocale } from 'next-intl';
+import { usePathname, useSearchParams } from 'next/navigation';
+import useRequestHistoryStore from '@store/request-history';
 
 export default function RestfulClient() {
   const [method, setMethod] = useState<METHODS>(METHODS.GET);
   const [url, setUrl] = useState<string>('');
   const [body, setBody] = useState<string>('');
+  const [loading, setLoading] = useState(false);
+  const [responseData, setResponseData] = useState<{ status?: number; body?: string } | null>(null);
 
-  const router = useRouter();
+  const locale = useLocale();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const { headers, addHeader, setHeaders } = useRequestStore((state) => state);
-  const { response, loading, sendRequest } = useFetchClient();
-  const t = useTranslations('restfulPage');
+  const { headers, setHeaders } = useRequestStore((state) => state);
+  const addRequest = useRequestHistoryStore((state) => state.addRequest);
 
-  const headersObject = convertHeadersArrayToObject(headers);
+  const t = useTranslations('restfulPage');
   const urlError = url.length > 0 && !isValidUrl(url);
 
   const handleSend = async () => {
     if (!isValidUrl(url)) return;
-    void sendRequest(url, method, headersObject, body);
-    const routeUrl = encodeRequestToUrl({ url, method, body, headers: headersObject });
-    router.push(routeUrl);
+
+    const requestData = { method, url, body, headers };
+    const path = encodeRequestToUrl(requestData);
+
+    const startTime = performance.now();
+    try {
+      setLoading(true);
+      const res = await fetch('/api/proxy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestData),
+      });
+
+      const data = await res.json();
+      setResponseData(data);
+      window.history.pushState({}, '', `/${locale}/restful-client${path}`);
+
+      const duration = performance.now() - startTime;
+      const requestSize = new Blob([JSON.stringify(requestData)]).size;
+      const responseSize = new Blob([JSON.stringify(data)]).size;
+
+      addRequest({
+        id: crypto.randomUUID(),
+        timestamp: new Date(),
+        method,
+        url,
+        requestSize,
+        responseSize,
+        status: data.status,
+        duration,
+      });
+    } catch (error) {
+      const duration = performance.now() - startTime;
+      const requestSize = new Blob([JSON.stringify(requestData)]).size;
+
+      addRequest({
+        id: crypto.randomUUID(),
+        timestamp: new Date(),
+        method,
+        url,
+        requestSize,
+        responseSize: 0,
+        error: String(error),
+        duration,
+      });
+
+      setResponseData({ body: String(error) });
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    const decodedRequest = decodeUrlToRequest(searchParams.toString());
+    if (!pathname) return;
+
+    const basePath = `/${locale}/restful-client`;
+
+    let pathAfterClient = pathname.startsWith(basePath) ? pathname.slice(basePath.length) : '';
+
+    if (pathAfterClient.startsWith('/')) pathAfterClient = pathAfterClient.slice(1);
+
+    const search = searchParams.toString();
+    const decodedRequest = decodeUrlToRequest(pathAfterClient + (search ? `?${search}` : ''));
 
     if (decodedRequest.url) {
       setUrl(decodedRequest.url);
-      setMethod(decodedRequest.method as METHODS);
+      setMethod(decodedRequest.method ? (decodedRequest.method as METHODS) : METHODS.GET);
       setBody(decodedRequest.body ?? '');
 
-      const newHeaders = Object.entries(decodedRequest.headers ?? {}).map(([key, value], index) => ({
-        id: index.toString(),
-        key,
-        value,
-      }));
+      const newHeaders = decodedRequest.headers?.length
+        ? decodedRequest.headers
+        : [{ id: crypto.randomUUID(), key: '', value: '' }];
+
       setHeaders(newHeaders);
     } else {
       setUrl('');
@@ -59,13 +116,13 @@ export default function RestfulClient() {
       setBody('');
       setHeaders([{ id: crypto.randomUUID(), key: '', value: '' }]);
     }
-  }, [searchParams, setHeaders]);
+  }, [searchParams, pathname, locale, setHeaders]);
 
   const tabItems: ITabItem[] = [
     {
       id: TABS.HEADERS,
       label: t('labels.tabs.headers'),
-      content: <HeadersTab headers={headers} addHeader={addHeader} />,
+      content: <HeadersTab />,
     },
     {
       id: TABS.BODY,
@@ -75,7 +132,7 @@ export default function RestfulClient() {
     {
       id: TABS.CODE,
       label: t('labels.tabs.code'),
-      content: <CodeTab url={url} method={method} body={body} headers={headersObject} />,
+      content: <CodeTab url={url} method={method} body={body} headers={headers} />,
     },
   ];
 
@@ -101,10 +158,10 @@ export default function RestfulClient() {
       <TabContainer tabs={tabItems} />
 
       <Box sx={{ mt: 'auto', maxHeight: '34vh', overflow: 'auto', mb: '5px' }}>
-        {response.status !== undefined && (
+        {responseData?.status !== undefined && (
           <>
-            <Typography>Status: {response.status}</Typography>
-            {response.body !== undefined && renderResponseBody(response.body, t)}
+            <Typography>Status: {responseData.status}</Typography>
+            {responseData.body !== undefined && renderResponseBody(responseData.body, t)}
           </>
         )}
       </Box>

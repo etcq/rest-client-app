@@ -33,7 +33,7 @@ export const GeneratedCode = ({ url, method, body, headers }: IRequestData): JSX
     const sdkRequest = new Request({
       url,
       method,
-      headers: Object.entries(headers).map(([key, value]) => ({ key, value })),
+      headers: headers.map(({ key, value }) => ({ key, value })),
       body: {
         mode: 'raw',
         raw: body,

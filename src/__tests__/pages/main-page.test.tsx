@@ -1,5 +1,5 @@
 import { expect, describe, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import messagesEn from '../../../messages/en.json';
 import messagesRu from '../../../messages/ru.json';
@@ -13,9 +13,11 @@ describe('Main page', () => {
         <MainPage />
       </NextIntlClientProvider>
     );
-    expect(screen.getByText(/welcome/i)).toBeInTheDocument();
-    expect(screen.getByText(/The development team/i)).toBeInTheDocument();
-    expect(screen.getByTestId('main-menu')).toBeInTheDocument();
+    waitFor(() => {
+      expect(screen.getByText(/welcome/i)).toBeInTheDocument();
+      expect(screen.getByText(/The development team/i)).toBeInTheDocument();
+      expect(screen.getByTestId('main-menu')).toBeInTheDocument();
+    });
   });
   it('If localization is set to ru, the title should change', () => {
     render(
@@ -24,7 +26,9 @@ describe('Main page', () => {
       </NextIntlClientProvider>
     );
     expect(screen.queryByText(/welcome/i)).not.toBeInTheDocument();
-    expect(screen.getByText(/добро пожаловать/i)).toBeInTheDocument();
+    waitFor(() => {
+      expect(screen.findByText(/добро пожаловать/i)).toBeInTheDocument();
+    });
   });
   it('If user unauth, should be unauth menu', () => {
     render(

@@ -29,7 +29,7 @@ export const paths = {
   main: '/',
   login: '/login',
   registration: '/registration',
-  rest: '/rest',
+  rest: '/restful-client',
   history: '/history',
   variables: '/variables',
 } as const;
