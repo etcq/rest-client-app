@@ -18,6 +18,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import useRequestHistoryStore from '@store/request-history';
 import { useAuthStore } from '@/store/auth-store';
 import { addRequestToUser } from '@/actions/add-request';
+import useVariablesStorage from '@/hooks/use-variables-storage';
 
 export default function RestfulClient() {
   const [method, setMethod] = useState<METHODS>(METHODS.GET);

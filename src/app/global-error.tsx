@@ -1,33 +1,39 @@
 'use client';
 
-import { Link } from '@/i18n/navigation';
+import { Container, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import { Roboto } from 'next/font/google';
+import Link from 'next/link';
+
+const roboto = Roboto({
+  weight: ['300', '400', '500', '700'],
+  variable: '--font-roboto',
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
-    <html>
-      <body style={{ fontFamily: 'sans-serif', padding: '2rem', textAlign: 'center' }}>
-        <h2>Something went wrong 😢</h2>
-        <h3>{error.digest}</h3>
-        <div style={{ marginTop: '1.5rem' }}>
-          <button
-            onClick={() => reset()}
-            style={{
-              padding: '0.5rem 1rem',
-              borderRadius: '6px',
-              border: 'none',
-              background: '#0070f3',
-              color: '#fff',
-              cursor: 'pointer',
-            }}
-          >
-            Try again
-          </button>
-        </div>
-        <div style={{ marginTop: '1rem' }}>
-          <Link href="/" style={{ color: '#0070f3', textDecoration: 'underline' }}>
-            Go back main
-          </Link>
-        </div>
+    <html className={roboto.variable}>
+      <body>
+        <Container
+          sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', p: 10 }}
+        >
+          <Typography variant="h3" sx={{ mb: 7 }}>
+            Something went wrong 😢
+          </Typography>
+          <Typography variant="h6" sx={{ width: '500px', textAlign: 'center' }}>
+            {error.message}
+          </Typography>
+          <div style={{ marginTop: '1.5rem' }}>
+            <Button variant="outlined" color="primary" onClick={() => reset()}>
+              Try again
+            </Button>
+          </div>
+          <div style={{ marginTop: '1rem' }}>
+            <Link href="/">Go back main</Link>
+          </div>
+        </Container>
       </body>
     </html>
   );
