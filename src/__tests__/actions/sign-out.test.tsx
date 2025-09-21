@@ -26,8 +26,9 @@ describe('logout', () => {
   it('should throw an error if authentication fails', async () => {
     const mockError = new Error('Sign out failed');
     vi.mocked(signOut).mockRejectedValue(mockError);
+    const result = await logout();
 
-    await expect(logout()).rejects.toThrow('Authentication error: Error: Sign out failed');
+    expect(result).toEqual(new Error('Authentication error: Sign out failed'));
     expect(signOut).toHaveBeenCalledTimes(1);
   });
 });

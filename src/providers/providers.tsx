@@ -5,6 +5,7 @@ import { SessionProvider } from 'next-auth/react';
 import theme from '@/theme/theme';
 import { auth } from '@/auth/auth';
 import AppLoader from '@/hoc/app-loader';
+import { Toaster } from 'react-hot-toast';
 
 interface IProvidersProps {
   children: React.ReactNode;
@@ -21,6 +22,25 @@ export default async function Providers({ children, locale, messages }: IProvide
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <NextIntlClientProvider locale={locale} messages={messages}>
+              <Toaster
+                toastOptions={{
+                  style: {
+                    backgroundColor: '#71717d',
+                    color: 'white',
+                    border: '1px solid #1f282f',
+                  },
+                  success: {
+                    style: {
+                      border: '1px solid green',
+                    },
+                  },
+                  error: {
+                    style: {
+                      border: '1px solid red',
+                    },
+                  },
+                }}
+              />
               {children}
             </NextIntlClientProvider>
           </ThemeProvider>

@@ -10,7 +10,7 @@ export async function loginWithCredentials(email: string, password: string) {
       redirect: false,
     });
     return result;
-  } catch (error) {
-    throw new Error(`Authentication error: ${error}`);
+  } catch {
+    return new Error('Authentication error. Check email and password');
   }
 }

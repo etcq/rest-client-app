@@ -9,6 +9,6 @@ export async function logout() {
     });
     return result;
   } catch (error) {
-    throw new Error(`Authentication error: ${error}`);
+    return new Error(`Authentication error: ${error instanceof Error && error.message}`);
   }
 }

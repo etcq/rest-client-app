@@ -54,7 +54,6 @@
       "incorrectUrl": "Incorrect Url"
     }
   },
-
   "AuthValidation": {
     "name": "Name is required",
     "nameUppercase": "Name must start with an uppercase letter",
@@ -69,5 +68,26 @@
   },
   "Loading": {
     "loading": "Loading"
+  },
+  "Variables": {
+    "variables": "Variables",
+    "key": "Key",
+    "value": "Value",
+    "controls": "Controls",
+    "add": "Add",
+    "delete": "Delete"
+  },
+  "History": {
+    "empty": "It's empty here.",
+    "noRequests": "You haven't executed any requests yet.",
+    "tryRest": "Try the RESTful Client",
+    "method": "Method",
+    "status": "Status",
+    "duration": "Duration (ms)",
+    "timestamp": "Timestamp",
+    "reqSize": "Req. Size (bytes)",
+    "resSize": "Res. Size (bytes)",
+    "error": "Error Details",
+    "endpoint": "Endpoint"
   }
 }

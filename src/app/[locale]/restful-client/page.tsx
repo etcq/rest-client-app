@@ -17,6 +17,10 @@ import { useLocale } from 'next-intl';
 import { usePathname, useSearchParams } from 'next/navigation';
 import useRequestHistoryStore from '@store/request-history';
 import { Loading } from '@/components';
+import useVariablesStorage from '@/hooks/use-variables-storage';
+import { useAuthStore } from '@/store/auth-store';
+import { addRequestToUser } from '@/actions/add-request';
+
 
 export default function RestfulClient() {
   const [method, setMethod] = useState<METHODS>(METHODS.GET);
@@ -24,10 +28,14 @@ export default function RestfulClient() {
   const [body, setBody] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [responseData, setResponseData] = useState<{ status?: number; body?: string } | null>(null);
+  const { convert } = useVariablesStorage();
 
   const locale = useLocale();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const { session } = useAuthStore();
+  const userEmail = session?.user?.email;
 
   const { headers, setHeaders } = useRequestStore((state) => state);
   const addRequest = useRequestHistoryStore((state) => state.addRequest);
@@ -40,51 +48,65 @@ export default function RestfulClient() {
 
     const requestData = { method, url, body, headers };
     const path = encodeRequestToUrl(requestData);
-
     const startTime = performance.now();
+
+    let responseData,
+      statusCode = 0,
+      responseSize = 0,
+      errorDetails = '';
+
     try {
       setLoading(true);
+
       const res = await fetch('/api/proxy', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestData),
       });
 
-      const data = await res.json();
-      setResponseData(data);
-      window.history.pushState({}, '', `/${locale}/restful-client${path}`);
+      if (!res.ok) {
+        errorDetails = `${res.statusText}`;
+        try {
+          const errorBody = await res.json();
+          responseData = errorBody;
+        } catch {
+          responseData = { body: errorDetails };
+        }
+        throw new Error(errorDetails);
+      }
 
+      responseData = await res.json();
+      statusCode = responseData.status;
+      responseSize = new Blob([JSON.stringify(responseData)]).size;
+
+      window.history.pushState({}, '', `/${locale}/restful-client${path}`);
+    } catch {
+      responseData = { body: errorDetails };
+      responseSize = 0;
+    } finally {
       const duration = performance.now() - startTime;
       const requestSize = new Blob([JSON.stringify(requestData)]).size;
-      const responseSize = new Blob([JSON.stringify(data)]).size;
 
-      addRequest({
+      setResponseData(responseData);
+
+      const requestLog = {
         id: crypto.randomUUID(),
-        timestamp: new Date(),
+        timestamp: new Date().getTime(),
         method,
-        url,
+        endpoint: url,
         requestSize,
         responseSize,
-        status: data.status,
+        statusCode,
         duration,
-      });
-    } catch (error) {
-      const duration = performance.now() - startTime;
-      const requestSize = new Blob([JSON.stringify(requestData)]).size;
+        errorDetails,
+        path,
+      };
 
-      addRequest({
-        id: crypto.randomUUID(),
-        timestamp: new Date(),
-        method,
-        url,
-        requestSize,
-        responseSize: 0,
-        error: String(error),
-        duration,
-      });
+      if (userEmail) {
+        addRequest(requestLog);
+        addRequestToUser(userEmail, requestLog);
+      }
 
-      setResponseData({ body: String(error) });
-    } finally {
       setLoading(false);
     }
   };
