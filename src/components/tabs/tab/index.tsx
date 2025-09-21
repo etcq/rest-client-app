@@ -21,6 +21,7 @@ export default function Tabs({ tabs, activeTab, onChange }: ITabsProps): JSX.Ele
             size="small"
             variant={activeTab === tab.id ? 'contained' : 'outlined'}
             onClick={() => onChange(tab.id)}
+            disabled={activeTab === tab.id}
             sx={{ border: 'none', borderBottom: '1px solid' }}
           >
             {tab.label}
