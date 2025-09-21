@@ -16,6 +16,7 @@ import CodeTab from '@/components/tabs/code';
 import { useLocale } from 'next-intl';
 import { usePathname, useSearchParams } from 'next/navigation';
 import useRequestHistoryStore from '@store/request-history';
+import useVariablesStorage from '@/hooks/use-variables-storage';
 
 export default function RestfulClient() {
   const [method, setMethod] = useState<METHODS>(METHODS.GET);
@@ -23,6 +24,7 @@ export default function RestfulClient() {
   const [body, setBody] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [responseData, setResponseData] = useState<{ status?: number; body?: string } | null>(null);
+  const { convert } = useVariablesStorage();
 
   const locale = useLocale();
   const pathname = usePathname();
@@ -145,7 +147,7 @@ export default function RestfulClient() {
           fullWidth
           placeholder={t('placeholders.url')}
           value={url}
-          onChange={(e) => setUrl(e.target.value)}
+          onChange={(e) => setUrl(convert(e.target.value))}
           error={urlError}
           helperText={urlError ? t('errors.incorrectUrl') : ' '}
           sx={{ maxWidth: '600px' }}
