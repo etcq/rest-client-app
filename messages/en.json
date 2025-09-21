@@ -69,6 +69,14 @@
   "Loading": {
     "loading": "Loading"
   },
+  "Variables": {
+    "variables": "Variables",
+    "key": "Key",
+    "value": "Value",
+    "controls": "Controls",
+    "add": "Add",
+    "delete": "Delete"
+  },
   "History": {
     "empty": "It's empty here.",
     "noRequests": "You haven't executed any requests yet.",

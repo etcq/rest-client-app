@@ -31,10 +31,9 @@ describe('loginWithCredentials', () => {
   it('should throw an error if authentication fails', async () => {
     const mockError = new Error('Invalid credentials');
     vi.mocked(signIn).mockRejectedValue(mockError);
+    const result = await loginWithCredentials('test@gmail.com', 'wrong-password');
 
-    await expect(loginWithCredentials('test@gmail.com', 'wrong-password')).rejects.toThrow(
-      'Authentication error: Error: Invalid credentials'
-    );
+    expect(result).toEqual(new Error('Authentication error. Check email and password'));
     expect(signIn).toHaveBeenCalledTimes(1);
   });
 });
