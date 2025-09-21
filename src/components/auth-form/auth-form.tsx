@@ -7,7 +7,8 @@ import { TextField, Button, Box, Typography, Link } from '@mui/material';
 import { type SignInInput, type SignUpInput, signInSchema, signUpSchema } from '@/schema/auth-schema';
 import { loginWithCredentials } from '@/actions/sign-in';
 import { registerUser } from '@/actions/register';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
+import { redirect } from 'next/navigation';
 import { getSession } from 'next-auth/react';
 import { useAuthStore } from '@/store/auth-store';
 import toast from 'react-hot-toast';
@@ -25,7 +26,7 @@ const AuthForm: FC<IProps> = ({ type }) => {
   const isLogin = type === 'login';
   const schema = isLogin ? signInSchema : signUpSchema;
   const { setAuthState } = useAuthStore();
-  const locale = useLocale();
+
   const {
     register,
     handleSubmit,

@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { AppBar, Box, IconButton, Toolbar, Typography, Container } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Image from 'next/image';
-import { Link, redirect } from '@i18n/navigation';
+import { Link } from '@i18n/navigation';
 import { LangSwitcher, NavButton, Sidebar } from '@components';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { appName, layoutConfig, paths } from '@constants';
 import usePageScroll from '@/hooks/use-page-scroll';
 import { useAuthStore } from '@/store/auth-store';
@@ -18,7 +18,6 @@ export const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { status, setAuthState } = useAuthStore((state) => state);
   const { setVariables } = useVariableStore();
-  const locale = useLocale();
   const t = useTranslations('Navigation');
   const pageScroll = usePageScroll();
 

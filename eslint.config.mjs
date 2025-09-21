@@ -16,6 +16,8 @@ export default tseslint.config(
       'out/**',
       'build/**',
       'next-env.d.ts',
+      './src/generated/**',
+      'coverage/**'
     ],
   },
   {
