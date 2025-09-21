@@ -67,6 +67,7 @@ model Request {
   responseSize      Int
   errorDetails      String
   endpoint          String
+  path              String
 
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       String

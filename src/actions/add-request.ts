@@ -1,9 +1,9 @@
 'use server';
 
-import type { IHistoryRequest } from '@/interfaces';
+import type { IRequestHistoryItem } from '@/interfaces';
 import { prisma } from '@/utils/prisma';
 
-export const addRequestToUser = async (userEmail: string, requestData: IHistoryRequest) => {
+export const addRequestToUser = async (userEmail: string, requestData: IRequestHistoryItem) => {
   try {
     const newRequest = await prisma.request.create({
       data: {
@@ -15,6 +15,7 @@ export const addRequestToUser = async (userEmail: string, requestData: IHistoryR
         responseSize: requestData.responseSize,
         errorDetails: requestData.errorDetails,
         endpoint: requestData.endpoint,
+        path: requestData.path,
 
         user: {
           connect: {
