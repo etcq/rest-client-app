@@ -16,6 +16,7 @@ import CodeTab from '@/components/tabs/code';
 import { useLocale } from 'next-intl';
 import { usePathname, useSearchParams } from 'next/navigation';
 import useRequestHistoryStore from '@store/request-history';
+import { Loading } from '@/components';
 
 export default function RestfulClient() {
   const [method, setMethod] = useState<METHODS>(METHODS.GET);
@@ -137,34 +138,37 @@ export default function RestfulClient() {
   ];
 
   return (
-    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', minHeight: '100%', gap: '10px' }}>
-      <Box sx={{ display: 'flex', gap: '10px', mx: 'auto', width: '100%', maxWidth: '800px', mt: '30px' }}>
-        <SelectField value={method} onChange={(e) => setMethod(e.target.value as METHODS)} />
-        <TextField
-          size="small"
-          fullWidth
-          placeholder={t('placeholders.url')}
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          error={urlError}
-          helperText={urlError ? t('errors.incorrectUrl') : ' '}
-          sx={{ maxWidth: '600px' }}
-        />
-        <Button variant="contained" disabled={!isValidUrl(url)} onClick={handleSend} sx={{ maxHeight: '40px' }}>
-          {loading ? 'Loading...' : t('labels.buttons.send')}
-        </Button>
-      </Box>
+    <>
+      {loading && <Loading />}
+      <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', minHeight: '100%', gap: '10px' }}>
+        <Box sx={{ display: 'flex', gap: '10px', mx: 'auto', width: '100%', maxWidth: '800px', mt: '30px' }}>
+          <SelectField value={method} onChange={(e) => setMethod(e.target.value as METHODS)} />
+          <TextField
+            size="small"
+            fullWidth
+            placeholder={t('placeholders.url')}
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            error={urlError}
+            helperText={urlError ? t('errors.incorrectUrl') : ' '}
+            sx={{ maxWidth: '600px' }}
+          />
+          <Button variant="contained" disabled={!isValidUrl(url)} onClick={handleSend} sx={{ maxHeight: '40px' }}>
+            {t('labels.buttons.send')}
+          </Button>
+        </Box>
 
-      <TabContainer tabs={tabItems} />
+        <TabContainer tabs={tabItems} />
 
-      <Box sx={{ mt: 'auto', maxHeight: '34vh', overflow: 'auto', mb: '5px' }}>
-        {responseData?.status !== undefined && (
-          <>
-            <Typography>Status: {responseData.status}</Typography>
-            {responseData.body !== undefined && renderResponseBody(responseData.body, t)}
-          </>
-        )}
+        <Box sx={{ mt: 'auto', maxHeight: '34vh', overflow: 'auto', mb: '5px' }}>
+          {responseData?.status !== undefined && (
+            <>
+              <Typography>Status: {responseData.status}</Typography>
+              {responseData.body !== undefined && renderResponseBody(responseData.body, t)}
+            </>
+          )}
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }
