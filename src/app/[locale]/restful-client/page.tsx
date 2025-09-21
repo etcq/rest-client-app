@@ -1,26 +1,23 @@
 'use client';
 
-import { Box, Typography, TextField, Button } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { Box, Button, TextField, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { METHODS, TABS } from '@constants';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import SelectField from '@/components/methods-select';
 import useRequestStore from '@store/use-request.store';
-import { encodeRequestToUrl, decodeUrlToRequest } from '@utils/url-route';
+import { decodeUrlToRequest, encodeRequestToUrl } from '@utils/url-route';
 import { isValidUrl } from '@utils/url-validation';
 import { renderResponseBody } from '@utils/render-response-body';
 import TabContainer, { type ITabItem } from '@/components/tabs/container';
 import HeadersTab from '@/components/tabs/headers';
 import BodyTab from '@/components/tabs/body';
 import CodeTab from '@/components/tabs/code';
-import { useLocale } from 'next-intl';
 import { usePathname, useSearchParams } from 'next/navigation';
 import useRequestHistoryStore from '@store/request-history';
 import { Loading } from '@/components';
-import useVariablesStorage from '@/hooks/use-variables-storage';
 import { useAuthStore } from '@/store/auth-store';
 import { addRequestToUser } from '@/actions/add-request';
-
 
 export default function RestfulClient() {
   const [method, setMethod] = useState<METHODS>(METHODS.GET);
@@ -28,7 +25,6 @@ export default function RestfulClient() {
   const [body, setBody] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [responseData, setResponseData] = useState<{ status?: number; body?: string } | null>(null);
-  const { convert } = useVariablesStorage();
 
   const locale = useLocale();
   const pathname = usePathname();
