@@ -6,13 +6,14 @@ import type { IRequestHistoryItem } from '@interfaces';
 const mockItem: IRequestHistoryItem = {
   id: '1',
   method: 'GET',
-  url: 'https://api.example.com/data',
-  timestamp: new Date(1678886400000),
-  status: 200,
+  endpoint: 'https://api.example.com/data',
+  timestamp: 1678886400000,
+  statusCode: 200,
   duration: 150,
   requestSize: 50,
   responseSize: 150,
-  error: undefined,
+  errorDetails: '',
+  path: '/test-path-1',
 };
 
 describe('useRequestHistoryStore', () => {
@@ -36,12 +37,13 @@ describe('useRequestHistoryStore', () => {
 
   it('should add new requests to the beginning of the history array', () => {
     const { addRequest } = useRequestHistoryStore.getState();
-    const secondMockItem = {
+    const secondMockItem: IRequestHistoryItem = {
       ...mockItem,
       id: '2',
-      timestamp: new Date(1678886401000),
+      timestamp: 1678886401000,
       requestSize: 60,
       responseSize: 180,
+      path: '/test-path-2',
     };
 
     act(() => {
@@ -59,12 +61,13 @@ describe('useRequestHistoryStore', () => {
 
   it('should clear the history', () => {
     const { addRequest, clearHistory } = useRequestHistoryStore.getState();
-    const secondMockItem = {
+    const secondMockItem: IRequestHistoryItem = {
       ...mockItem,
       id: '2',
-      timestamp: new Date(1678886401000),
+      timestamp: 1678886401000,
       requestSize: 60,
       responseSize: 180,
+      path: '/test-path-2',
     };
 
     act(() => {
