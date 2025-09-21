@@ -13,7 +13,8 @@
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
-    "prisma": "npx prisma generate"
+    "prisma": "npx prisma generate",
+    "deploy": "npx prisma generate && next build --turbopack"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
@@ -24,6 +25,7 @@
     "@mui/icons-material": "^7.3.2",
     "@mui/material": "^7.3.2",
     "@mui/material-nextjs": "^7.3.2",
+    "@netlify/plugin-nextjs": "^5.13.3",
     "@prisma/client": "^6.15.0",
     "js-base64": "^3.7.8",
     "next": "15.5.2",
