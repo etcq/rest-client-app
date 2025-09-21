@@ -16,6 +16,8 @@ import CodeTab from '@/components/tabs/code';
 import { useLocale } from 'next-intl';
 import { usePathname, useSearchParams } from 'next/navigation';
 import useRequestHistoryStore from '@store/request-history';
+import useVariablesStorage from '@/hooks/use-variables-storage';
+import toast from 'react-hot-toast';
 import { useAuthStore } from '@/store/auth-store';
 import { addRequestToUser } from '@/actions/add-request';
 import useVariablesStorage from '@/hooks/use-variables-storage';
