@@ -19,12 +19,13 @@ export interface IRequestData {
 
 export interface IRequestHistoryItem {
   id: string;
-  timestamp: Date;
+  timestamp: number;
   method: string;
-  url: string;
+  endpoint: string;
   requestSize: number;
   responseSize: number;
-  status?: number;
-  duration?: number;
-  error?: string;
+  statusCode: number;
+  duration: number;
+  errorDetails: string;
+  path: string;
 }

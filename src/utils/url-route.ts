@@ -44,7 +44,7 @@ export const decodeUrlToRequest = (url: string): Partial<IRequestData> => {
 
     if (encodedUrl) {
       try {
-        decodedUrl = Base64.decode(encodedUrl);
+        decodedUrl = Base64.decode(decodeURIComponent(encodedUrl));
       } catch (e) {
         console.error('Failed to decode URL from Base64:', e);
       }
