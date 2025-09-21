@@ -13,7 +13,7 @@
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
-    "deploy": "npx prisma generate && npx prisma db push && next build",
+    "deploy": "next build && npx prisma generate && npx prisma db push",
     "postinstall": "prisma generate",
     "prisma-generate": "npx prisma generate"
   },
