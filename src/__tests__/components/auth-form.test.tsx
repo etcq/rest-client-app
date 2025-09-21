@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import AuthForm from '@/components/auth-form/auth-form';
 import { loginWithCredentials } from '@/actions/sign-in';
-import { redirect } from '@/i18n/navigation';
+import { redirect } from 'next/navigation';
 
 vi.mock('next-intl', () => ({
   useTranslations: vi.fn(() => vi.fn((key) => key)),
@@ -17,7 +17,7 @@ vi.mock('@/actions/register', () => ({
   registerUser: vi.fn(),
 }));
 
-vi.mock('@/i18n/navigation', () => ({
+vi.mock('next/navigation', () => ({
   redirect: vi.fn(),
 }));
 
