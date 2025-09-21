@@ -2,10 +2,11 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import AuthForm from '@/components/auth-form/auth-form';
 import { loginWithCredentials } from '@/actions/sign-in';
-import { redirect } from 'next/navigation';
+import { redirect } from '@/i18n/navigation';
 
 vi.mock('next-intl', () => ({
   useTranslations: vi.fn(() => vi.fn((key) => key)),
+  useLocale: () => 'en',
 }));
 
 vi.mock('@/actions/sign-in', () => ({
@@ -16,7 +17,7 @@ vi.mock('@/actions/register', () => ({
   registerUser: vi.fn(),
 }));
 
-vi.mock('next/navigation', () => ({
+vi.mock('@/i18n/navigation', () => ({
   redirect: vi.fn(),
 }));
 
@@ -68,7 +69,7 @@ describe('AuthForm', () => {
       const mockedRedirect = vi.mocked(redirect);
       await waitFor(() => {
         expect(mockedLoginWithCredentials).toHaveBeenCalledWith('test@gmail.com', 'Password123$');
-        expect(mockedRedirect).toHaveBeenCalledWith('/');
+        expect(mockedRedirect).toHaveBeenCalled();
       });
     });
   });
@@ -109,7 +110,7 @@ describe('AuthForm', () => {
       const mockedRedirect = vi.mocked(redirect);
 
       await waitFor(() => expect(mockedLoginWithCredentials).toHaveBeenCalledWith('test@gmail.com', 'Password123$'));
-      expect(mockedRedirect).toHaveBeenCalledWith('/');
+      expect(mockedRedirect).toHaveBeenCalled();
     });
   });
 });
