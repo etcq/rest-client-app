@@ -12,7 +12,6 @@ import { redirect } from 'next/navigation';
 import { getSession } from 'next-auth/react';
 import { useAuthStore } from '@/store/auth-store';
 import toast from 'react-hot-toast';
-import { redirect } from '@/i18n/navigation';
 
 interface IProps {
   type: 'login' | 'register';
