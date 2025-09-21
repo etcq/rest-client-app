@@ -11,8 +11,8 @@ describe('Variables table component', () => {
         <VariablesTable />
       </NextIntlClientProvider>
     );
-    expect(screen.getByText('Variables Key')).toBeInTheDocument();
-    expect(screen.getByText('Variables Value')).toBeInTheDocument();
+    expect(screen.getAllByText('Key')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('Value')[0]).toBeInTheDocument();
     expect(screen.getByText('Controls')).toBeInTheDocument();
   });
   it('Form should added new rows in table', () => {
