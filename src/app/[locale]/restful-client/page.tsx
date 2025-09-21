@@ -17,6 +17,7 @@ import { useLocale } from 'next-intl';
 import { usePathname, useSearchParams } from 'next/navigation';
 import useRequestHistoryStore from '@store/request-history';
 import useVariablesStorage from '@/hooks/use-variables-storage';
+import toast from 'react-hot-toast';
 
 export default function RestfulClient() {
   const [method, setMethod] = useState<METHODS>(METHODS.GET);
@@ -70,6 +71,9 @@ export default function RestfulClient() {
         duration,
       });
     } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
       const duration = performance.now() - startTime;
       const requestSize = new Blob([JSON.stringify(requestData)]).size;
 
