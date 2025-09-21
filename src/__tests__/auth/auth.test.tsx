@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
-import NextAuth from 'next-auth';
+import NextAuth, { type Session } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { ZodError } from 'zod';
 import { getUserFromDb } from '@/utils/get-user';
@@ -24,7 +24,10 @@ vi.mock('@/schema/auth-schema', () => ({
 }));
 
 let authorizeFn: (credentials: Record<string, unknown> | undefined) => Promise<MockUser | null>;
-let callbacks: { jwt: ({ token, user }: { token: MockToken; user: MockUser }) => Promise<MockToken> };
+let callbacks: {
+  jwt: ({ token, user }: { token: MockToken; user: MockUser }) => Promise<MockToken>;
+  authorized: ({ auth }: { auth: Session | null }) => Promise<boolean>;
+};
 
 beforeEach(async () => {
   vi.clearAllMocks();
@@ -81,5 +84,10 @@ describe('Auth', () => {
   it('jwt callback should attach user id', async () => {
     const token = await callbacks.jwt({ token: {}, user: { id: '1' } as MockUser });
     expect(token.id).toBe('1');
+  });
+
+  it('authorized callback should return false if auth object is null', async () => {
+    const result = await callbacks.authorized({ auth: null });
+    expect(result).toBe(false);
   });
 });

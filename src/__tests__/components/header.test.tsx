@@ -24,7 +24,7 @@ describe('Header component', () => {
       </NextIntlClientProvider>
     );
     expect(screen.getAllByTestId('header-btn-login')[0]).toHaveTextContent('Войти');
-    expect(screen.getAllByTestId('header-btn-registration')[0]).toHaveTextContent('Зарегестрироваться');
+    expect(screen.getAllByTestId('header-btn-registration')[0]).toHaveTextContent('Зарегистрироваться');
     expect(screen.getByRole('combobox')).toHaveTextContent('RU');
   });
 });
