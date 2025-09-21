@@ -11,6 +11,8 @@ import usePageScroll from '@/hooks/use-page-scroll';
 import { useAuthStore } from '@/store/auth-store';
 import { logout } from '@/actions/sign-out';
 import useVariableStore from '@/store/use-variable-store';
+import { redirect } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 export const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -28,7 +30,8 @@ export const Header = () => {
     await logout();
     setVariables({});
     setAuthState('unauthenticated', null);
-    redirect({ href: '/', locale: locale });
+    toast.success('You have successfully logged out');
+    redirect('/');
   };
 
   const authNavItems = [

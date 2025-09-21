@@ -54,7 +54,8 @@ describe('registerUser', () => {
       updatedAt: new Date(),
     });
 
-    await expect(registerUser(mockUserData)).rejects.toThrow('User with same email already exists');
+    const result = await registerUser(mockUserData);
+    expect(result).toEqual(new Error('Failed to register: User with same email already exists'));
     expect(prisma.user.findUnique).toHaveBeenCalledWith({
       where: { email: mockUserData.email },
     });

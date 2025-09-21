@@ -10,6 +10,7 @@ import { registerUser } from '@/actions/register';
 import { useLocale, useTranslations } from 'next-intl';
 import { getSession } from 'next-auth/react';
 import { useAuthStore } from '@/store/auth-store';
+import toast from 'react-hot-toast';
 import { redirect } from '@/i18n/navigation';
 
 interface IProps {
@@ -38,13 +39,22 @@ const AuthForm: FC<IProps> = ({ type }) => {
   const onSubmit = async (formData: TFormValues) => {
     const { email, password } = formData as SignInInput;
     if (!isLogin) {
-      await registerUser(formData as SignUpInput);
+      const response = await registerUser(formData as SignUpInput);
+      if (response instanceof Error) {
+        toast.error(response.message);
+        return;
+      }
     }
-    await loginWithCredentials(email, password);
+    const response = await loginWithCredentials(email, password);
+    if (response instanceof Error) {
+      toast.error(response.message);
+      return;
+    }
     const session = await getSession();
     if (session) {
       setAuthState('authenticated', session);
-      redirect({ href: '/', locale: locale });
+      toast.success('You are logged');
+      redirect('/');
     }
   };
 

@@ -2,6 +2,7 @@
 import { Typography, Box } from '@mui/material';
 import dynamic from 'next/dynamic';
 import { Loading } from '@components';
+import { useTranslations } from 'next-intl';
 
 const VariablesTable = dynamic(() => import('@components/variables-table/variables-table'), {
   loading: () => <Loading />,
@@ -9,10 +10,11 @@ const VariablesTable = dynamic(() => import('@components/variables-table/variabl
 });
 
 const VariablesPage = () => {
+  const t = useTranslations('Variables');
   return (
     <Box>
       <Typography variant="h4" textAlign="center" sx={{ my: 2 }}>
-        Variables
+        {t('variables')}
       </Typography>
       <VariablesTable />
     </Box>

@@ -25,6 +25,6 @@ export async function registerUser(formData: SignUpInput) {
 
     return user;
   } catch (error) {
-    throw new Error(`Failed to register: ${error}`);
+    return new Error(`Failed to register: ${error instanceof Error && error.message}`);
   }
 }
