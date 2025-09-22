@@ -7,7 +7,7 @@ import { getUserFromDb } from '@/utils/get-user';
 import { ZodError } from 'zod';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter({ prisma }),
   providers: [
     Credentials({
       credentials: {
