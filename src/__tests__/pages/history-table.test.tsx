@@ -1,10 +1,15 @@
 import HistoryTable from '@/components/history/history-table/history-table';
 import { render, screen } from '@testing-library/react';
+import { NextIntlClientProvider } from 'next-intl';
 import { describe, expect, it, vi } from 'vitest';
 
-vi.mock('next-intl', () => ({
-  useTranslations: () => (key: string) => key,
-}));
+vi.mock('next-intl', async () => {
+  const actual = await vi.importActual('next-intl');
+  return {
+    ...actual,
+    useTranslations: () => (key: string) => key,
+  };
+});
 
 vi.mock('../history-table-cell/history-table-cell', () => ({
   default: ({ children }: { children: React.ReactNode }) => <td>{children}</td>,
@@ -25,7 +30,11 @@ describe('HistoryTable', () => {
       errorDetails: '',
     };
 
-    render(<HistoryTable requests={[requestData]} />);
+    render(
+      <NextIntlClientProvider locale={'en'}>
+        <HistoryTable requests={[requestData]} />
+      </NextIntlClientProvider>
+    );
     expect(screen.getAllByText('—')).toHaveLength(5);
   });
 });
