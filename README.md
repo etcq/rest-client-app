@@ -193,9 +193,10 @@ npm install
 
 Create a .env file in the root directory of the project: refer to the .env.example file as a reference or template for configuring .env file and add the environment variables with your own values.
 
-6. Run development version: 
+6. Generate prisma client and Run development version: 
 
 ```
+npx prisma generate && npx prisma db push
 npm run dev
 ```
 
