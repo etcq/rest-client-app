@@ -1,0 +1,93 @@
+{
+  "MainPage": {
+    "titleUnauth": "Welcome!",
+    "titleAuth": "Welcome back!",
+    "description": "This is the final project for the React course at Rsschool, a programming school. The aim of the project is to create a lightweight version of Postman within a single app.",
+    "createdBy": "The development team:"
+  },
+
+  "Navigation": {
+    "login": "Sign In",
+    "registration": "Sign Up",
+    "logout": "Sign Out",
+    "rest": "REST Client",
+    "history": "History",
+    "variables": "Variables",
+    "main": "Main page"
+  },
+
+  "Auth": {
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "noAccount": "Don't have an account? ",
+    "haveAccount": "Already have an account? "
+  },
+
+  "restfulPage": {
+    "title": "REST client",
+    "placeholders": {
+      "url": "Enter URL",
+      "headers": {
+        "key": "Key",
+        "value": "value"
+      },
+      "body": "Enter request body here...",
+      "code": "Not enough details to generate code. Please provide a valid URL"
+    },
+    "labels": {
+      "selects": {
+        "method": "method"
+      },
+      "buttons": {
+        "send" : "send",
+        "add": "Add"
+      },
+      "tabs": {
+        "headers": "Headers",
+        "body": "Body",
+        "code": "Generated Code"
+      }
+    },
+    "errors": {
+      "response": "Unsupported content type",
+      "incorrectUrl": "Incorrect Url"
+    }
+  },
+  "AuthValidation": {
+    "name": "Name is required",
+    "nameUppercase": "Name must start with an uppercase letter",
+    "email": "Email is required",
+    "emailInvalid": "Invalid email address",
+    "password": "Password is required",
+    "passwordLength": "Password must be at least 8 characters long",
+    "passwordUppercase": "Password must contain at least one uppercase letter",
+    "passwordLowercase": "Password must contain at least one lowercase letter",
+    "passwordNumber": "Password must contain at least one number",
+    "passwordSpecial": "Password must contain at least one special character"
+  },
+  "Loading": {
+    "loading": "Loading"
+  },
+  "Variables": {
+    "variables": "Variables",
+    "key": "Key",
+    "value": "Value",
+    "controls": "Controls",
+    "add": "Add",
+    "delete": "Delete"
+  },
+  "History": {
+    "empty": "It's empty here.",
+    "noRequests": "You haven't executed any requests yet.",
+    "tryRest": "Try the RESTful Client",
+    "method": "Method",
+    "status": "Status",
+    "duration": "Duration (ms)",
+    "timestamp": "Timestamp",
+    "reqSize": "Req. Size (bytes)",
+    "resSize": "Res. Size (bytes)",
+    "error": "Error Details",
+    "endpoint": "Endpoint"
+  }
+}

@@ -1,0 +1,22 @@
+import type { SessionStatus } from '@interfaces';
+import type { Session } from 'next-auth';
+import { create } from 'zustand';
+
+interface AuthState {
+  isAuth: boolean;
+  status: SessionStatus;
+  session: Session | null;
+  setAuthState: (status: SessionStatus, session?: Session | null) => void;
+}
+
+export const useAuthStore = create<AuthState>((set) => ({
+  isAuth: false,
+  status: 'loading',
+  session: null,
+  setAuthState: (status, session) =>
+    set({
+      isAuth: status === 'authenticated',
+      status,
+      session,
+    }),
+}));
