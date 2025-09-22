@@ -24,6 +24,7 @@ export default defineConfig({
         'next-env.d.ts',
         '**/src/middleware.ts',
         '**/src/generated/**',
+        '**/src/interfaces/**',
       ],
       ignoreEmptyLines: true,
     },
