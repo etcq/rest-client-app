@@ -10,7 +10,7 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid()) @map("_id") @db.ObjectId
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   email    String @unique
   password String
@@ -26,8 +26,8 @@ model User {
 }
 
 model Account {
-  id                String  @id @default(cuid()) @map("_id") @db.ObjectId
-  userId            String
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String @db.ObjectId
   type              String
   provider          String
   providerAccountId String
@@ -48,9 +48,9 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid()) @map("_id") @db.ObjectId
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
-  userId       String
+  userId       String   @db.ObjectId
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -59,7 +59,7 @@ model Session {
 }
 
 model Request {
-  id                String  @id @default(cuid()) @map("_id") @db.ObjectId
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
   method            String
   statusCode        Int
   duration          Int
@@ -71,11 +71,11 @@ model Request {
   path              String
 
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId       String
+  userId       String   @db.ObjectId
 }
 
 model VerificationToken {
-  id                String  @id @default(cuid()) @map("_id") @db.ObjectId
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
   identifier String
   token      String
   expires    DateTime
