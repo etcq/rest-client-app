@@ -4,13 +4,13 @@ import { Avatar, Box, Divider, List, ListItem, ListItemAvatar, ListItemText, Typ
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { github, teamPersonsInfo } from '@/constants';
-import { useSession } from 'next-auth/react';
+import { useAuthStore } from '@/store/auth-store';
 
 const avatarEndpoint = '.png?size=50';
 
 export default function MainPage() {
   const t = useTranslations('MainPage');
-  const { status } = useSession();
+  const status = useAuthStore((state) => state.status);
   if (status === 'loading') return <Loading />;
   return (
     <Box

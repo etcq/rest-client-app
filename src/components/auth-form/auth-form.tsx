@@ -52,7 +52,7 @@ const AuthForm: FC<IProps> = ({ type }) => {
     }
     const session = await getSession();
     if (session) {
-      setAuthState('authenticated', session);
+      await setAuthState('authenticated', session);
       toast.success('You are logged');
       redirect('/');
     }
