@@ -10,8 +10,8 @@ const avatarEndpoint = '.png?size=50';
 
 export default function MainPage() {
   const t = useTranslations('MainPage');
-  const authStatus = useAuthStore((state) => state.status);
-  if (authStatus === 'loading') return <Loading />;
+  const status = useAuthStore((state) => state.status);
+  if (status === 'loading') return <Loading />;
   return (
     <Box
       sx={{
@@ -24,7 +24,7 @@ export default function MainPage() {
       }}
     >
       <Typography variant="h1" sx={{ mb: 4, textAlign: 'center', fontWeight: 700 }}>
-        {authStatus === 'authenticated' ? t('titleAuth') : t('titleUnauth')}
+        {status === 'authenticated' ? t('titleAuth') : t('titleUnauth')}
       </Typography>
       <Box sx={{ my: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Typography width={600}>{t('description')}</Typography>
@@ -45,7 +45,7 @@ export default function MainPage() {
           ))}
         </List>
       </Box>
-      <MainMenu isAuth={authStatus === 'authenticated'} />
+      <MainMenu isAuth={status === 'authenticated'} />
     </Box>
   );
 }
