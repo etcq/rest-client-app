@@ -13,6 +13,7 @@ import { logout } from '@/actions/sign-out';
 import useVariableStore from '@/store/use-variable-store';
 import { redirect } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { signOut as newSignOut } from 'next-auth/react';
 
 export const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -27,6 +28,7 @@ export const Header = () => {
 
   const handleLogout = async () => {
     await logout();
+    await newSignOut();
     setVariables({});
     setAuthState('unauthenticated', null);
     toast.success('You have successfully logged out');
